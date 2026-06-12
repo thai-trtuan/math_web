@@ -1,0 +1,6 @@
+{
+  "name": "Khoa Toán - Tin học HCMUS",
+  "description": "Cổng thông tin điện tử Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
