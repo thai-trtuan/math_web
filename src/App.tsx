@@ -618,7 +618,7 @@ export default function App() {
                     <div className="absolute left-full top-0 w-72 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
                       <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bậc Thạc sĩ</a>
                       <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bậc Tiến sĩ</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Thạc sĩ Toán ứng dụng Pháp - Việt</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Chương trình Thạc sĩ Toán ứng dụng Pháp - Việt</a>
                     </div>
                   </div>
                 </div>
