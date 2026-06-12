@@ -34,7 +34,12 @@ import {
   GraduationCap,
   Brain,
   Activity,
-  ChevronUp
+  ChevronUp,
+  Facebook,
+  Linkedin,
+  Youtube,
+  MessageCircle,
+  Video
 } from "lucide-react";
 import { 
   STATISTICS, 
@@ -114,7 +119,7 @@ export default function App() {
   useEffect(() => {
     const welcomeMsg = lang === "vi" 
       ? "Xin chào! Mình là Trợ lý học vụ ảo Khoa Toán - Tin học. Bạn cần tìm hiểu thông tin tuyển sinh, ngành học hay học bổng thế?"
-      : "Hello! I am the Virtual Academic Advisor for the Department of Math & Computer Science. How can I assist you with admissions, majors, or scholarships today?";
+      : "Hello! I am the Virtual Academic Advisor for the Department of Mathematics & Computer Science. How can I assist you with admissions, majors, or scholarships today?";
     setChatMessages([{ sender: "bot", text: welcomeMsg }]);
   }, [lang]);
 
@@ -268,48 +273,28 @@ export default function App() {
   const t = (key: string) => {
     const translations: Record<string, { vi: string; en: string }> = {
       // General Header / Topbar
-      alumni: { vi: "Cựu Sinh Viên", en: "Alumni" },
-      jobs: { vi: "Tuyển Dụng", en: "Careers" },
-      contact: { vi: "Liên Hệ", en: "Contact" },
+      alumni: { vi: "Cựu sinh viên", en: "Alumni" },
+      jobs: { vi: "Tuyển dụng", en: "Careers" },
+      contact: { vi: "Liên hệ", en: "Contact" },
       searchPlaceholder: { vi: "Tìm kiếm thông tin học phần, tin tức...", en: "Search courses, news, events..." },
-      hotline: { vi: "Hotline Giáo Vụ", en: "Academic Hotline" },
       titleSchool: { vi: "TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN", en: "UNIVERSITY OF SCIENCE" },
-      titleVnu: { vi: "ĐẠI HỌC QUỐC GIA TP.HỒ CHÍ MINH", en: "VIETNAM NATIONAL UNIVERSITY - HCM" },
+      titleVnu: { vi: "ĐẠI HỌC QUỐC GIA TP.HỒ CHÍ MINH", en: "VIETNAM NATIONAL UNIVERSITY HO CHI MINH CITY" },
       titleDept: { vi: "KHOA TOÁN - TIN HỌC", en: "FACULTY OF MATHEMATICS & COMPUTER SCIENCE" },
       
       // Navigation Menu
-      navIntro: { vi: "Giới Thiệu", en: "About Us" },
-      navEdu: { vi: "Đào Tạo", en: "Academics" },
-      navResearch: { vi: "Nghiên Cứu", en: "Research" },
-      navStudent: { vi: "Sinh Viên", en: "Student Life" },
-      navNews: { vi: "Tin Tức - Thông Báo", en: "News & Events" },
-      navCareersPost: { vi: "Hướng Nghiệp", en: "Partnership" },
+      navIntro: { vi: "Giới thiệu", en: "About us" },
+      navEdu: { vi: "Đào tạo", en: "Academics" },
+      navResearch: { vi: "Nghiên cứu", en: "Research" },
+      navStudent: { vi: "Sinh viên", en: "Student life" },
+      navNews: { vi: "Tin Tức - Sự kiện", en: "News & Events" },
 
       // Navigation Dropdown Items (Simplified mock links)
-      subHistory: { vi: "Lịch sử hình thành", en: "Our History" },
-      subStaff: { vi: "Đội ngũ giảng viên", en: "Faculty & Staff" },
-      subStructure: { vi: "Cơ cấu tổ chức", en: "Department Structure" },
-      subUniv: { vi: "Bậc Đại học", en: "Undergraduate Streams" },
-      subPostGrad: { vi: "Sau Đại học", en: "Graduate & PhD" },
-      subLab: { vi: "Nhóm nghiên cứu mạnh", en: "Key Laboratories" },
-      subSeminar: { vi: "Hội nghị & Hội thảo", en: "Symposiums & Conferences" },
-      subRegulation: { vi: "Học vụ & Quy chế", en: "Student Policy Guides" },
-      subYouth: { vi: "Đoàn - Hội khoa", en: "Youth Union & Student Union" },
-
-      // Titles of section
-      secStats: { vi: "NHỮNG CON SỐ ẤN TƯỢNG", en: "STATS AT A GLANCE" },
-      secNewsTitle: { vi: "Tin Tức Sự Kiện Mới Nhất", en: "Latest News & Dynamic Events" },
-      secNotifTitle: { vi: "Thông Báo Quan Trọng", en: "Key Notifications" },
-      secProgramsTitle: { vi: "Chương Trình Đào Tạo Trọng Điểm", en: "Key Academic Programs" },
-      secAlumniTitle: { vi: "Tự Hào Cựu Sinh Viên Khoa Toán - Tin học", en: "Inspiring Alumni Stories" },
-      secFaqTitle: { vi: "Giải Đáp Thắc Mắc Thường Gặp", en: "Frequently Asked Questions" },
+      subStaff: { vi: "Thông tin đội ngũ", en: " Staff" },
+      subStructure: { vi: "Cơ cấu tổ chức", en: "Organizational ttructure" },
+      subUniv: { vi: "Bậc Đại học", en: "Undergraduate Programs" },
+      subPostGrad: { vi: "Sau Đại học", en: "Postgraduate Programs" },
 
       // Filter tabs
-      tabAll: { vi: "Tất cả tin tức", en: "All News" },
-      tabAcademic: { vi: "Học thuật - Nghiên cứu", en: "Academic & R&D" },
-      tabActivity: { vi: "Sự kiện - Phong trào", en: "Student Activity" },
-      notifUnder: { vi: "Đại học Chính quy", en: "Undergraduate" },
-      notifPost: { vi: "Sau Đại học", en: "Postgraduate" },
       notifScholar: { vi: "Học bổng - Việc làm", en: "Scholarship & Career" },
 
       // Button / Interactive
@@ -323,9 +308,9 @@ export default function App() {
       exploreMore: { vi: "Khám phá bản đồ Khoa", en: "Explore Location Map" },
 
       // Contact form
-      addrTitle: { vi: "ĐỊA CHỈ LIÊN HỆ", en: "CONTACT HEADQUARTER" },
-      addrDetail: { vi: "227 Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Việt Nam", en: "227 Nguyen Van Cu Str, Ward 4, District 5, Ho Chi Minh City, Vietnam" },
-      officeHour: { vi: "Giờ làm việc: Thứ Hai - Thứ Sáu, 07:30 - 11:30 & 13:30 - 17:00", en: "Working hours: Mon - Fri, 07:30 - 11:30 & 13:30 - 17:00" },
+      addrTitle: { vi: "ĐỊA CHỈ LIÊN HỆ", en: "ADDRESS" },
+      addrDetail: { vi: "Phòng F08-09, Tòa nhà F, 227 Nguyễn Văn Cừ, Phường Chợ Quán, Thành phố Hồ Chí Minh", en: "Room F08-09, Building F, 227 Nguyen Van Cu Str, Cho Quan Ward, Ho Chi Minh City" },
+      officeHour: { vi: "Giờ làm việc: Thứ Hai - Thứ Sáu, 08:00 - 11:30 & 13:30 - 16:30", en: "Working hours: Mon - Fri, 08:00 - 11:30 & 13:30 - 16:30" },
       formTitle: { vi: "Gửi thư đóng góp / Liên hệ công tác", en: "Get In Touch / Academic Inquiries" },
       formName: { vi: "Họ và tên của bạn", en: "Your full name" },
       formEmail: { vi: "Địa chỉ Email", en: "Email address" },
@@ -374,7 +359,7 @@ export default function App() {
 
   // Copy address helper
   const handleCopyAddress = () => {
-    const fullAddress = "227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP.Hồ Chí Minh, Việt Nam";
+    const fullAddress = "227 Nguyễn Văn Cừ, Phường Chợ Quán, TP. Hồ Chí Minh";
     navigator.clipboard.writeText(fullAddress);
     setCopiedAddress(true);
     setTimeout(() => setCopiedAddress(false), 2000);
@@ -466,7 +451,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-slate-50 text-slate-800 antialiased selection:bg-sky-200 selection:text-[#003366]">
+    <div className="min-h-screen flex flex-col font-sans bg-slate-50 text-slate-800 antialiased selection:bg-sky-200 selection:text-sky-600">
       
       {/* ========================================== */}
       {/* 1. MAIN HEADER & BRANDING & LANGUAGE BAR   */}
@@ -477,19 +462,19 @@ export default function App() {
           {/* Branding Left */}
           <div className="flex items-center space-x-3.5">
             {/* Elegant SVG Academic Emblem Seal representation of HCMUS */}
-            <div className="w-12 h-12 bg-[#003366] rounded-lg p-2 flex items-center justify-center text-white shrink-0 shadow-sm">
+            <div className="w-12 h-12 bg-sky-600 rounded-lg p-2 flex items-center justify-center text-white shrink-0 shadow-sm">
               <span className="font-serif font-black text-xl tracking-wider text-white">U</span>
             </div>
             
-            <div className="border-l-2 border-[#003366] pl-3.5 py-0.5">
+            <div className="border-l-2 border-sky-600 pl-3.5 py-0.5">
               <p className="text-[10px] md:text-xs font-semibold tracking-wide text-slate-500 leading-tight">
                 {t("titleVnu")}
               </p>
-              <p className="text-[11px] md:text-xs font-bold tracking-wide text-[#003366] leading-tight">
+              <p className="text-[11px] md:text-xs font-bold tracking-wide text-sky-600 leading-tight">
                 {t("titleSchool")}
               </p>
-              <h1 className="text-base md:text-xl font-extrabold tracking-tight text-[#003366] mt-0.5 font-display flex items-center gap-1.5">
-                KHOA TOÁN - TIN HỌC
+              <h1 className="text-base md:text-xl font-extrabold tracking-tight text-sky-600 mt-0.5 font-display flex items-center gap-1.5">
+                {lang === "vi" ? "KHOA TOÁN - TIN HỌC" : "FACULTY OF MATHEMATICS & COMPUTER SCIENCE"}
               </h1>
             </div>
           </div>
@@ -499,14 +484,14 @@ export default function App() {
             <div className="relative">
               <input 
                 type="text" 
-                placeholder={lang === "vi" ? "Tìm kiếm thông tin..." : "Search..."}
+                placeholder={lang === "vi" ? "Tìm kiếm..." : "Search..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-50 text-slate-800 placeholder-slate-400 text-xs rounded-full py-2 px-3.5 pl-8 w-44 sm:w-56 focus:outline-none focus:ring-1 focus:ring-[#003366] border border-slate-200 transition-all shadow-3xs"
+                className="bg-slate-50 text-slate-800 placeholder-slate-400 text-xs rounded-full py-2 px-3.5 pl-8 w-44 sm:w-56 focus:outline-none focus:ring-1 focus:ring-sky-600 border border-slate-200 transition-all shadow-3xs"
               />
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
               {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="absolute right-2.5 top-2.5 text-slate-400 hover:text-[#003366]">
+                <button onClick={() => setSearchTerm("")} className="absolute right-2.5 top-2.5 text-slate-400 hover:text-sky-600">
                   <X className="w-3 h-3" />
                 </button>
               )}
@@ -515,13 +500,13 @@ export default function App() {
             <div className="flex bg-slate-100 rounded-full p-0.5 border border-slate-200">
               <button 
                 onClick={() => setLang("vi")} 
-                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "vi" ? "bg-[#003366] text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
+                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "vi" ? "bg-sky-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
               >
                 VI
               </button>
               <button 
                 onClick={() => setLang("en")} 
-                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "en" ? "bg-[#003366] text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
+                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "en" ? "bg-sky-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
               >
                 EN
               </button>
@@ -530,7 +515,7 @@ export default function App() {
             {/* Mobile Hamburger Toggle */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-              className="lg:hidden p-2 text-slate-700 hover:text-[#003366] hover:bg-slate-100 rounded-md transition-colors"
+              className="lg:hidden p-2 text-slate-700 hover:text-sky-600 hover:bg-slate-100 rounded-md transition-colors"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -543,82 +528,84 @@ export default function App() {
       {/* 2. NAVIGATION BAR (Desktop nested menus)     */}
       {/* ========================================== */}
       
-      <nav id="navigation" className="bg-[#003366] text-white shadow-md relative z-30 hidden lg:block border-b border-sky-400/10">
+      <nav id="navigation" className="bg-sky-600 text-white shadow-md relative z-30 hidden lg:block border-b border-sky-400/10">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px]">
           <div className="flex items-center h-12">
             <ul className="flex space-x-1 h-full">
               {/* Trang chủ */}
               <li className="h-full">
-                <a href="#hero-slider" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap">
-                  Trang chủ
+                <a href="#hero-slider" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap">
+                  {lang === "vi" ? "Trang chủ" : "Home"}
                 </a>
               </li>
 
               {/* Giới thiệu */}
               <li className="relative group/main h-full">
-                <a href="#intro" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
-                  Giới thiệu
+                <a href="#" onClick={(e) => e.preventDefault()} className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                  {lang === "vi" ? "Giới thiệu" : "About us"}
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
-                  <a href="#welcome-section" className="block px-4 py-2 text-xs font-bold text-[#003366] hover:bg-sky-50 transition-colors">Tổng quan</a>
+                  <a href="#welcome-section" className="block px-4 py-2 text-xs font-bold text-sky-600 hover:bg-sky-50 transition-colors">
+                    {lang === "vi" ? "Tổng quan" : "Overview"}
+                  </a>
                   
                   {/* Cơ cấu tổ chức */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
-                      <span>Cơ cấu tổ chức</span>
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                      <span>{lang === "vi" ? "Cơ cấu tổ chức" : "Organizational Structure"}</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-60 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#board" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Ban Chủ nhiệm</a>
-                      <a href="#council" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Hội đồng khoa học</a>
-                      <a href="#departments" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bộ môn</a>
-                      <a href="#faculty" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Thông tin đội ngũ</a>
+                      <a href="#board" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Ban Chủ nhiệm" : "Board of Deans"}</a>
+                      <a href="#council" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Hội đồng khoa học" : "Scientific Council"}</a>
+                      <a href="#departments" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Bộ môn" : "Departments"}</a>
+                      <a href="#faculty" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Thông tin đội ngũ" : "Staffs"}</a>
                     </div>
                   </div>
 
-                  <a href="#party" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Đảng - Đoàn thể</a>
-                  <a href="#branding" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bộ nhận diện thương hiệu</a>
+                  <a href="#party" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Đảng - Đoàn thể" : "Party & Unions"}</a>
+                  <a href="#branding" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Bộ nhận diện thương hiệu" : "Brand Identity"}</a>
                 </div>
               </li>
 
               {/* Tin tức - Sự kiện */}
               <li className="h-full">
-                <a href="#news-section" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap">
-                  Tin tức - Sự kiện
+                <a href="#news-section" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap">
+                  {lang === "vi" ? "Tin tức - Sự kiện" : "News & Events"}
                 </a>
               </li>
 
               {/* Đào tạo */}
               <li className="relative group/main h-full">
-                <a href="#edu-programs" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
-                  Đào tạo
+                <a href="#" onClick={(e) => e.preventDefault()} className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                  {lang === "vi" ? "Đào tạo" : "Academics"}
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
                   {/* Đại học */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
-                      <span>Đại học</span>
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                      <span>{lang === "vi" ? "Đại học" : "Undergraduate"}</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-64 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Chương trình Chuẩn</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Chương trình Cử nhân tài năng</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Chương trình Tăng cường tiếng Anh</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Chương trình Chuẩn" : "Standard Program"}</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Chương trình Cử nhân tài năng" : "Talented Program"}</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Chương trình Tăng cường tiếng Anh" : "High Quality (English) Program"}</a>
                     </div>
                   </div>
 
                   {/* Sau đại học */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
-                      <span>Sau đại học</span>
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                      <span>{lang === "vi" ? "Sau đại học" : "Postgraduate"}</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-72 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bậc Thạc sĩ</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bậc Tiến sĩ</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Thạc sĩ Toán ứng dụng Pháp - Việt</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Bậc Thạc sĩ" : "Master Level"}</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Bậc Tiến sĩ" : "PhD Level"}</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Thạc sĩ Toán ứng dụng Pháp - Việt" : "French-Vietnamese Master's Program in Applied Mathematics"}</a>
                     </div>
                   </div>
                 </div>
@@ -626,51 +613,51 @@ export default function App() {
 
               {/* Nghiên cứu - Hợp tác */}
               <li className="relative group/main h-full">
-                <a href="#research" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
-                  Nghiên cứu - Hợp tác
+                <a href="#" onClick={(e) => e.preventDefault()} className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                  {lang === "vi" ? "Nghiên cứu - Hợp tác" : "Research & Partnerships"}
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
                   {/* Nghiên cứu */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
-                      <span>Nghiên cứu</span>
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                      <span>{lang === "vi" ? "Nghiên cứu" : "Research"}</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-60 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Định hướng nghiên cứu</a>
-                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Công trình NCKH</a>
-                      <a href="#research font" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Công bố khoa học</a>
-                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Hoạt động học thuật</a>
+                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Định hướng nghiên cứu" : "Research Directions"}</a>
+                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Công trình NCKH" : "Scientific Projects"}</a>
+                      <a href="#research font" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Công bố khoa học" : "Publications"}</a>
+                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Hoạt động học thuật" : "Academic Activities"}</a>
                     </div>
                   </div>
 
-                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Quan hệ doanh nghiệp</a>
-                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Hợp tác quốc tế</a>
+                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Quan hệ doanh nghiệp" : "Corporate Relations"}</a>
+                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Hợp tác quốc tế" : "International Cooperations"}</a>
                 </div>
               </li>
 
               {/* Hỗ trợ người học */}
               <li className="relative group/main h-full">
-                <a href="#students" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
-                  Hỗ trợ người học
+                <a href="#" onClick={(e) => e.preventDefault()} className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                  {lang === "vi" ? "Hỗ trợ người học" : "Student Support"}
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
-                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Giáo viên chủ nhiệm</a>
-                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Cố vấn học tập</a>
-                  <a href="#resources" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Tài nguyên học vụ</a>
-                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Học bổng</a>
-                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Cơ hội việc làm</a>
-                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Quy trình - Biểu mẫu</a>
-                  <a href="#alumni" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Cựu sinh viên</a>
+                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Giáo viên chủ nhiệm" : "Homeroom Teachers"}</a>
+                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Cố vấn học tập" : "Academic Advisors"}</a>
+                  <a href="#resources" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Tài nguyên học vụ" : "Academic Resources"}</a>
+                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Học bổng" : "Scholarships"}</a>
+                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Cơ hội việc làm" : "Job Opportunities"}</a>
+                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Quy trình - Biểu mẫu" : "Procedures & Forms"}</a>
+                  <a href="#alumni" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">{lang === "vi" ? "Cựu sinh viên" : "Alumni"}</a>
                 </div>
               </li>
 
               {/* Tuyển sinh */}
               <li className="h-full">
-                <a href="#contact" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap">
-                  Tuyển sinh
+                <a href="#contact" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap">
+                  {lang === "vi" ? "Tuyển sinh" : "Admissions"}
                 </a>
               </li>
             </ul>
@@ -687,7 +674,9 @@ export default function App() {
           {/* Menu core body */}
           <div className="relative flex flex-col w-full max-w-sm bg-sky-900 h-full p-6 text-white overflow-y-auto shadow-2xl z-50">
             <div className="flex items-center justify-between border-b border-sky-800 pb-4 mb-6">
-              <span className="font-extrabold text-white text-lg tracking-wider font-display">TRANG CHỦ</span>
+              <span className="font-extrabold text-white text-lg tracking-wider font-display">
+                {lang === "vi" ? "TRANG CHỦ" : "HOME"}
+              </span>
               <button onClick={() => setMobileMenuOpen(false)} className="p-1 rounded-sm bg-sky-950 text-slate-300">
                 <X className="w-6 h-6" />
               </button>
@@ -712,53 +701,53 @@ export default function App() {
             {/* Side Menu Links */}
             <ul className="space-y-4 text-xs font-bold">
               <li>
-                <div className="text-white mb-1.5 uppercase opacity-60">Giới Thiệu</div>
+                <div className="text-white mb-1.5 uppercase opacity-60">{lang === "vi" ? "Giới Thiệu" : "About Us"}</div>
                 <div className="pl-3 space-y-2 border-l border-sky-700 text-sky-100 font-semibold">
-                  <a href="#welcome-section" onClick={() => setMobileMenuOpen(false)} className="block py-1">Tổng quan</a>
-                  <a href="#board" onClick={() => setMobileMenuOpen(false)} className="block py-1">Cơ cấu tổ chức</a>
-                  <a href="#party" onClick={() => setMobileMenuOpen(false)} className="block py-1">Đảng - Đoàn thể</a>
-                  <a href="#branding" onClick={() => setMobileMenuOpen(false)} className="block py-1">Bộ nhận diện thương hiệu</a>
+                  <a href="#welcome-section" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Tổng quan" : "Overview"}</a>
+                  <a href="#board" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Cơ cấu tổ chức" : "Organizational Structure"}</a>
+                  <a href="#party" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Đảng - Đoàn thể" : "Party & Union"}</a>
+                  <a href="#branding" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Bộ nhận diện thương hiệu" : "Brand Identity"}</a>
                 </div>
               </li>
               <li>
-                <div className="text-white mb-1.5 uppercase opacity-60">Đào Tạo</div>
+                <div className="text-white mb-1.5 uppercase opacity-60">{lang === "vi" ? "Đào Tạo" : "Academics"}</div>
                 <div className="pl-3 space-y-2 border-l border-sky-700 text-sky-100 font-semibold">
-                  <a href="#edu-programs" onClick={() => setMobileMenuOpen(false)} className="block py-1">Bậc Đại học</a>
-                  <a href="#edu-programs" onClick={() => setMobileMenuOpen(false)} className="block py-1">Sau đại học</a>
+                  <a href="#edu-programs" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Đại học" : "Undergraduate"}</a>
+                  <a href="#edu-programs" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Sau đại học" : "Postgraduate"}</a>
                 </div>
               </li>
               <li>
-                <div className="text-white mb-1.5 uppercase opacity-60">Nghiên cứu - Hợp tác</div>
+                <div className="text-white mb-1.5 uppercase opacity-60">{lang === "vi" ? "Nghiên cứu - Hợp tác" : "Research & Partnerships"}</div>
                 <div className="pl-3 space-y-2 border-l border-sky-700 text-sky-100 font-semibold">
-                  <a href="#research" onClick={() => setMobileMenuOpen(false)} className="block py-1">Định hướng nghiên cứu</a>
-                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-1">Quan hệ doanh nghiệp</a>
-                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-1">Hợp tác quốc tế</a>
+                  <a href="#research" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Định hướng nghiên cứu" : "Research Directions"}</a>
+                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Quan hệ doanh nghiệp" : "Corporate Relations"}</a>
+                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Hợp tác quốc tế" : "International Cooperations"}</a>
                 </div>
               </li>
               <li>
-                <div className="text-white mb-1.5 uppercase opacity-60">Hỗ trợ người học</div>
+                <div className="text-white mb-1.5 uppercase opacity-60">{lang === "vi" ? "Hỗ trợ người học" : "Student Support"}</div>
                 <div className="pl-3 space-y-2 border-l border-sky-700 text-sky-100 font-semibold">
-                  <a href="#advisor" onClick={() => setMobileMenuOpen(false)} className="block py-1">Cố vấn học tập & GVCN</a>
-                  <a href="#resources" onClick={() => setMobileMenuOpen(false)} className="block py-1">Tài nguyên học vụ</a>
-                  <a href="#news-section" onClick={() => setMobileMenuOpen(false)} className="block py-1">Học bổng & Cơ hội nghề nghiệp</a>
-                  <a href="#alumni" onClick={() => setMobileMenuOpen(false)} className="block py-1">Cựu sinh viên</a>
+                  <a href="#advisor" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Cố vấn học tập & GVCN" : "Academic Advisors"}</a>
+                  <a href="#resources" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Tài nguyên học vụ" : "Academic Resources"}</a>
+                  <a href="#news-section" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Học bổng & Cơ hội nghề nghiệp" : "Scholarships & Careers"}</a>
+                  <a href="#alumni" onClick={() => setMobileMenuOpen(false)} className="block py-1">{lang === "vi" ? "Cựu sinh viên" : "Alumni"}</a>
                 </div>
               </li>
               <li>
                 <a href="#news-section" onClick={() => setMobileMenuOpen(false)} className="block text-white uppercase font-bold py-1">
-                  Tin tức - Sự kiện
+                  {lang === "vi" ? "Tin tức - Sự kiện" : "News & Events"}
                 </a>
               </li>
               <li>
                 <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block text-white uppercase font-bold py-1">
-                  Tuyển sinh
+                  {lang === "vi" ? "Tuyển sinh" : "Admissions"}
                 </a>
               </li>
             </ul>
 
             <div className="mt-auto pt-6 text-center text-xs text-sky-200 border-t border-sky-800">
               <p>Hotline: (028) 3835 0006</p>
-              <p className="mt-1">Email: toantin@hcmus.edu.vn</p>
+              <p className="mt-1">Email: math@hcmus.edu.vn</p>
             </div>
           </div>
         </div>
@@ -839,63 +828,89 @@ export default function App() {
       {/* 4. WELCOME & KEY STATISTICS SECTION        */}
       {/* ========================================== */}
       
-      <section id="welcome-section" className="bg-white py-14">
+      <section id="welcome-section" className="bg-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
             
             {/* Visual Images Grid Left (Col 5) */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-5 relative">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
-                  <div className="rounded-2xl overflow-hidden shadow-md border-2 border-sky-50 bg-slate-100 transform hover:scale-[1.02] transition-transform duration-300">
+                  <div className="rounded-2xl overflow-hidden shadow-sm h-48">
+                    <img 
+                      src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80&w=500" 
+                      alt="Giải thưởng" 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <div className="rounded-2xl overflow-hidden shadow-sm h-48">
                     <img 
                       src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=500" 
-                      alt="Student group studying" 
-                      className="w-full h-40 object-cover"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                  <div className="rounded-2xl overflow-hidden col-span-2 shadow-sm border border-slate-100 bg-slate-50 p-4 transform hover:scale-[1.02] transition-transform duration-300 text-center flex flex-col items-center justify-center">
-                    <span className="text-xs font-extrabold uppercase text-sky-600 tracking-wider">AUN-QA certified</span>
-                    <p className="text-[10px] text-slate-505 font-semibold mt-1">Đạt tiêu chuẩn chất lượng mạng lưới ĐH Đông Nam Á</p>
-                  </div>
-                </div>
-                <div className="space-y-4 pt-6">
-                  <div className="rounded-2xl overflow-hidden col-span-1 shadow-md border-2 border-sky-50 bg-slate-100 transform hover:scale-[1.02] transition-transform duration-300">
-                    <img 
-                      src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=500" 
-                      alt="Collaboration session" 
-                      className="w-full h-56 object-cover"
+                      alt="Hoạt động sinh viên" 
+                      className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
-                 </div>
+                <div className="rounded-2xl overflow-hidden shadow-sm mt-8 h-[26rem]">
+                  <img 
+                    src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&q=80&w=600" 
+                    alt="Giảng viên" 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+              </div>
+              
+              {/* Year badge */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-40 md:h-40 rounded-full bg-sky-600/90 backdrop-blur-sm text-white flex flex-col items-center justify-center shadow-xl border-4 border-white">
+                <span className="text-3xl md:text-5xl font-black">~70</span>
+                <span className="text-sm md:text-base font-bold uppercase tracking-wider mt-1">Năm</span>
+              </div>
+            </div>
 
-              {/* Statistics grid layout */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
-                <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-[#003366] font-display">2000+</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">
-                    {lang === "vi" ? "Sinh viên Đại học" : "Undergraduates"}
+            {/* Content & Stats right (Col 7) */}
+            <div className="lg:col-span-7 space-y-8 text-left">
+              <div className="space-y-2">
+                <h3 className="text-sm md:text-base font-bold text-sky-200 uppercase tracking-widest opacity-80">
+                  {lang === "vi" ? "CHÀO MỪNG ĐẾN VỚI.." : "WELCOME TO.."}
+                </h3>
+                <h2 className="text-3xl md:text-4xl font-black text-sky-600 font-display">
+                  {lang === "vi" ? "Khoa Toán - Tin học" : "Faculty of Math & CS"}
+                </h2>
+              </div>
+              
+              <div className="text-[15px] text-slate-700 leading-relaxed font-normal text-justify">
+                {lang === "vi" ? (
+                  <p>
+                    Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM được thành lập lâu đời và là đơn vị đào tạo, cung cấp nguồn nhân lực chất lượng cao hàng đầu khu vực phía Nam về lĩnh vực Toán học, Tin học ứng dụng, Khoa học dữ liệu và Trí tuệ nhân tạo. Trải qua gần 30 năm hoạt động, Khoa đã phát triển vững chắc để trở thành một trong những khoa mũi nhọn trong hệ thống giáo dục đại học của Việt Nam.
+                  </p>
+                ) : (
+                  <p>
+                    The Faculty of Mathematics & Computer Science, VNUHCM-US, is a premier institution providing top-quality human resources in the South for Mathematics, Applied Informatics, Data Science, and Artificial Intelligence. With nearly 30 years of operation, the Faculty has steadily grown to become one of the leading faculties in Vietnam's higher education system.
+                  </p>
+                )}
+              </div>
+
+              {/* Statistics */}
+              <div className="grid grid-cols-3 gap-6 pt-4">
+                <div className="text-center sm:text-left">
+                  <p className="text-3xl md:text-5xl font-black text-sky-600 font-display">2000+</p>
+                  <p className="text-xs md:text-sm text-slate-700 font-medium mt-2">
+                    {lang === "vi" ? "Sinh viên đại học" : "Undergraduates"}
                   </p>
                 </div>
-                <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-[#003366] font-display">100+</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">
-                    {lang === "vi" ? "Giảng viên chất lượng" : "Quality Faculty"}
+                <div className="text-center sm:text-left">
+                  <p className="text-3xl md:text-5xl font-black text-sky-600 font-display">300+</p>
+                  <p className="text-xs md:text-sm text-slate-700 font-medium mt-2">
+                    {lang === "vi" ? "Học viên cao học" : "Postgraduates"}
                   </p>
                 </div>
-                <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-[#003366] font-display">30-50</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">
-                    {lang === "vi" ? "Đề tài NCKH hàng năm" : "Research Projects / yr"}
-                  </p>
-                </div>
-                <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-[#003366] font-display">70-100</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">
-                    {lang === "vi" ? "Công báo khoa học/năm" : "Papers / yr"}
+                <div className="text-center sm:text-left">
+                  <p className="text-3xl md:text-5xl font-black text-sky-600 font-display">100+</p>
+                  <p className="text-xs md:text-sm text-slate-700 font-medium mt-2">
+                    {lang === "vi" ? "Giảng viên" : "Faculty members"}
                   </p>
                 </div>
               </div>
@@ -909,12 +924,12 @@ export default function App() {
       {/* 5. KHỐI TIN TỨC & THÔNG BÁO                 */}
       {/* ========================================== */}
       
-      <section id="news-section" className="py-16 bg-slate-50/50 border-t border-slate-200/40">
+      <section id="news-section" className="pt-12 pb-10 bg-slate-50/50 border-t border-slate-200/40">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full">
           
           {/* Header of News & Events section */}
-          <div className="text-center pb-6 border-b border-slate-200/50 mb-10">
-            <h2 className="text-2xl md:text-3.5xl font-black text-[#003366] tracking-tight font-display uppercase">
+          <div className="text-center pb-4 mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase border-b border-slate-200/50 inline-block pb-4">
               {t("secNewsTitle")}
             </h2>
           </div>
@@ -943,11 +958,11 @@ export default function App() {
                       />
                     </div>
                     
-                    <h5 className="text-[15px] md:text-[17px] font-black text-sky-900 group-hover:text-sky-650 transition-colors uppercase font-sans tracking-tight leading-snug mt-4">
+                    <h5 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-4">
                       {lang === "vi" ? filteredNews[0].title : filteredNews[0].titleEn}
                     </h5>
                     
-                    <div className="text-xs text-slate-500 font-mono font-bold mt-1.5 block">
+                    <div className="text-sm text-slate-500 font-sans font-medium mt-1.5 block">
                       {filteredNews[0].date}
                     </div>
 
@@ -969,7 +984,7 @@ export default function App() {
                     <article 
                       key={item.id}
                       onClick={() => showToast(lang === 'vi' ? `Đang mở bài viết: ${item.title}` : `Opening story: ${item.titleEn}`)}
-                      className="flex flex-col sm:flex-row items-stretch gap-4 p-3 rounded-2xl border border-slate-200/50 bg-white hover:border-[#003366] hover:shadow-3xs transition-all cursor-pointer group"
+                      className="flex flex-col sm:flex-row items-stretch gap-4 p-3 rounded-2xl border border-slate-200/50 bg-white hover:border-sky-600 hover:shadow-3xs transition-all cursor-pointer group"
                     >
                       {/* Landscape thumbnail */}
                       <div className="w-full sm:w-36 h-24 rounded-xl overflow-hidden shrink-0 relative bg-slate-100 self-center sm:self-stretch shadow-4xs">
@@ -984,11 +999,11 @@ export default function App() {
                       {/* Text detail */}
                       <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0 text-left">
                         <div className="space-y-1">
-                          <h6 className="text-[13px] font-black text-sky-900 group-hover:text-[#003366] leading-snug line-clamp-2 uppercase font-sans">
+                          <h6 className="text-[13px] md:text-base font-bold text-slate-900 group-hover:text-sky-600 leading-snug line-clamp-2 transition-colors font-sans">
                             {lang === "vi" ? item.title : item.titleEn}
                           </h6>
                           
-                          <span className="text-[10px] text-slate-500 font-mono font-bold block mt-1.5">
+                          <span className="text-xs text-slate-500 font-sans block mt-1.5">
                             {item.date}
                           </span>
                         </div>
@@ -1005,12 +1020,12 @@ export default function App() {
               </div>
 
               {/* Center aligned read more button */}
-              <div className="text-center pt-4 mb-4">
+              <div className="pt-2 text-center">
                 <button 
                   onClick={() => showToast(lang === "vi" ? "Đang chuyển hướng tới trang Lưu trữ danh mục Tin tức..." : "Navigating to News Archive Catalog...")}
-                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-[#003366] hover:text-[#002244] font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-[#003366] transition-all cursor-pointer shadow-3xs"
+                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-sky-600 hover:text-sky-700 font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-sky-600 transition-all cursor-pointer shadow-3xs"
                 >
-                  {lang === "vi" ? "Xem thêm" : "Read more"}
+                  <span>{lang === "vi" ? "Xem thêm" : "Read more"}</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -1018,13 +1033,13 @@ export default function App() {
           )}
 
           {/* Divider between News & Announcements slider */}
-          <div className="w-full h-px bg-slate-250/60 my-10 border-t border-slate-200"></div>
+          <div className="w-full h-px bg-slate-250/60 my-6 border-t border-slate-200"></div>
 
           {/* Section 5B: Student Announcements Slider (As requested - Moved below as a horizontal slider) */}
-          <div id="student-alerts" className="w-full space-y-6">
+          <div id="student-alerts" className="w-full space-y-4">
             {/* Announcements Header block */}
-            <div className="flex flex-col items-center justify-center border-b border-slate-200/50 pb-5 mb-8 w-full text-center relative">
-              <h2 className="text-2xl md:text-3.5xl font-black text-[#003366] tracking-tight font-display uppercase">
+            <div className="flex flex-col items-center justify-center pb-4 w-full text-center relative">
+              <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase border-b border-slate-200/50 inline-block pb-4">
                 {lang === "vi" ? "THÔNG BÁO CHO NGƯỜI HỌC" : "ACADEMIC ANNOUNCEMENTS"}
               </h2>
               {/* Navigation buttons */}
@@ -1035,7 +1050,7 @@ export default function App() {
                       notifSliderRef.current.scrollBy({ left: -340, behavior: 'smooth' });
                     }
                   }}
-                  className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-[#003366] hover:text-[#003366] flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
+                  className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-sky-600 hover:text-sky-600 flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
                   aria-label="Scroll left"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -1046,7 +1061,7 @@ export default function App() {
                       notifSliderRef.current.scrollBy({ left: 340, behavior: 'smooth' });
                     }
                   }}
-                  className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-[#003366] hover:text-[#003366] flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
+                  className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-sky-600 hover:text-sky-600 flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
                   aria-label="Scroll right"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -1070,24 +1085,24 @@ export default function App() {
                     <div 
                       key={notif.id}
                       onClick={() => showToast(lang === 'vi' ? `Mở thông báo: ${notif.title}` : `Opening notice: ${notif.titleEn}`)}
-                      className="w-80 shrink-0 bg-white border border-slate-200/60 p-5 rounded-2xl flex flex-col justify-between hover:border-[#003366] hover:shadow-md hover:translate-y-[-2px] transition-all duration-300 snap-start cursor-pointer group shadow-3xs text-left"
+                      className="w-80 shrink-0 bg-white border border-slate-200/60 p-5 rounded-2xl flex flex-col justify-between hover:border-sky-600 hover:shadow-md hover:translate-y-[-2px] transition-all duration-300 snap-start cursor-pointer group shadow-3xs text-left"
                     >
                       <div className="space-y-3">
                         <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-2">
-                          <span className="text-[10px] text-slate-500 font-mono font-bold flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-slate-400 shrink-0" />
+                          <span className="text-xs md:text-sm text-slate-500 font-sans font-medium flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                             {notif.date} {notif.month} 2026
                           </span>
                           
                           {notif.priority && (notif.priority === "Khẩn" || notif.priority === "Quan trọng") && (
                             <div className="shrink-0 flex items-center">
                               {notif.priority === "Khẩn" ? (
-                                <span className="inline-flex items-center gap-1 text-[8px] font-black text-red-650 bg-red-50 border border-red-100 py-0.5 px-2 rounded-md shadow-3xs">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-red-600 bg-red-50 border border-red-100 py-0.5 px-2 rounded-md shadow-3xs">
                                   <span className="w-1 h-1 bg-red-500 rounded-full animate-ping shrink-0"></span>
                                   {lang === "vi" ? "Khẩn" : "URGENT"}
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1 text-[8px] font-black text-amber-755 bg-amber-50 border border-amber-100 py-0.5 px-2 rounded-md shadow-3xs">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-100 py-0.5 px-2 rounded-md shadow-3xs">
                                   <span className="w-1 h-1 bg-amber-500 rounded-full shrink-0 animate-pulse"></span>
                                   {lang === "vi" ? "Quan trọng" : "VITAL"}
                                 </span>
@@ -1096,7 +1111,7 @@ export default function App() {
                           )}
                         </div>
 
-                        <h5 className="text-[13px] md:text-sm font-black text-slate-900 group-hover:text-[#003366] transition-colors leading-snug font-sans line-clamp-3">
+                        <h5 className="text-[13px] md:text-base font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug font-sans line-clamp-2">
                           {cleanTitle(lang === "vi" ? notif.title : notif.titleEn)}
                         </h5>
                       </div>
@@ -1106,10 +1121,10 @@ export default function App() {
               </div>
             </div>
 
-            <div className="pt-6 text-center">
+            <div className="pt-2 text-center">
               <button 
                 onClick={(e) => { e.preventDefault(); showToast(lang === 'vi' ? "Đang liên kết toàn bộ lưu trữ thông báo học vụ..." : "Loading database of all historically stored announcements..."); }}
-                className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-[#003366] hover:text-[#002244] font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-[#003366] transition-all cursor-pointer shadow-3xs"
+                className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-sky-600 hover:text-sky-700 font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-sky-600 transition-all cursor-pointer shadow-3xs"
               >
                 <span>{lang === "vi" ? "Xem thêm" : "Read more"}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -1124,7 +1139,7 @@ export default function App() {
       {/* 6. KHỐI CÁC CHƯƠNG TRÌNH ĐÀO TẠO TRỌNG ĐIỂM */}
       {/* ========================================== */}
       
-      <section id="edu-programs" className="bg-[#003366] py-16 text-white relative overflow-hidden">
+      <section id="edu-programs" className="bg-sky-600 py-16 text-white relative overflow-hidden">
         {/* Subtle geometric digital background details representing mathematical concepts */}
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="absolute top-10 right-10 text-9xl font-serif text-white">∑</div>
@@ -1134,37 +1149,37 @@ export default function App() {
 
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] relative z-10">
           <div className="text-center mb-10 pb-6 border-b border-white/25">
-            <h2 className="text-2xl md:text-3.5xl font-black tracking-tight font-display text-white uppercase relative">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-sans text-white uppercase relative">
               {t("secProgramsTitle")}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {STUDY_PROGRAMS.map((prog) => (
               <div 
                 key={prog.id}
-                onClick={() => setSelectedProgram(prog)}
-                className="bg-white rounded-2xl border border-white/10 p-5 flex flex-col justify-between hover:scale-[1.02] hover:shadow-xl transition-all duration-300 cursor-pointer group text-left"
+                onClick={() => showToast(lang === "vi" ? `Đang chuyển đến trang chi tiết chương trình ${prog.name}...` : `Redirecting to ${prog.nameEn} details...`)}
+                className="bg-white rounded-2xl border border-white/10 p-6 shadow-3xs flex flex-col justify-between hover:scale-[1.02] hover:shadow-xl transition-all duration-300 cursor-pointer group text-left"
               >
                 <div className="space-y-4">
                   {/* Icon bubble */}
-                  <div className="w-12 h-12 rounded-xl bg-sky-50 text-[#003366] flex items-center justify-center group-hover:scale-105 transition-transform shadow-3xs">
-                    {prog.icon === "Sigma" ? <InfinityIcon className="w-6 h-6 text-[#003366]" /> :
-                     prog.icon === "Laptop" ? <Laptop className="w-6 h-6 text-[#003366]" /> :
-                     prog.icon === "Database" ? <Database className="w-6 h-6 text-[#003366]" /> :
-                     <Cpu className="w-6 h-6 text-[#003366]" />}
+                  <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center group-hover:scale-105 transition-transform shadow-3xs">
+                    {prog.icon === "Sigma" ? <InfinityIcon className="w-6 h-6 text-sky-600" /> :
+                     prog.icon === "Laptop" ? <Laptop className="w-6 h-6 text-sky-600" /> :
+                     prog.icon === "Database" ? <Database className="w-6 h-6 text-sky-600" /> :
+                     <Cpu className="w-6 h-6 text-sky-600" />}
                   </div>
                   <div>
-                    <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors font-sans">
+                    <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
                       {lang === "vi" ? prog.name : prog.nameEn}
                     </h4>
-                    <p className="text-xs text-slate-500 leading-relaxed font-semibold mt-2 line-clamp-4">
+                    <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
                       {lang === "vi" ? prog.shortDesc : prog.shortDescEn}
                     </p>
                   </div>
                 </div>
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#003366] group-hover:text-indigo-900 transition-colors mt-4">
-                  <span>{lang === "vi" ? "Xem chi tiết" : "Spec sheet"}</span>
+                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
+                  <span>{lang === "vi" ? "Tìm hiểu thêm" : "Learn more"}</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -1264,7 +1279,7 @@ export default function App() {
       <section id="student-activities" className="bg-slate-50 py-16 border-t border-slate-200/40">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full">
           <div className="text-center mb-10 pb-6 border-b border-slate-200/50">
-            <h2 className="text-2xl md:text-3.5xl font-black text-slate-900 font-display uppercase tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase">
               {lang === "vi" ? "MỘT SỐ HOẠT ĐỘNG NGHIÊN CỨU NỔI BẬT" : "OUTSTANDING RESEARCH ACTIVITIES"}
             </h2>
           </div>
@@ -1280,76 +1295,76 @@ export default function App() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
             {/* Card 1: AI Lab */}
-            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới AI & Machine Learning Lab..." : "Connecting to AI & Machine Learning Lab...")}>
+            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới AI & Machine Learning Lab..." : "Connecting to AI & Machine Learning Lab...")}>
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold font-mono">01</div>
-                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold text-lg font-mono">01</div>
+                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
                   {lang === "vi" ? "AI & Machine Learning Lab" : "AI & Machine Learning Lab"}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
                   {lang === "vi" 
                     ? "Tối ưu hóa thuật toán mạng nơ-ron sâu, mô hình học máy quy mô lớn, xử lý ngôn ngữ tự nhiên Tiếng Việt (LLM) và ứng dụng robotics hiện đại."
                     : "Optimizing deep neural network algorithms, large-scale machine learning models, Vietnamese LLM engines, and modern robot vision."}
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
                 <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
                 <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
             {/* Card 2: Quantum Crypto */}
-            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Trung tâm Mật mã học..." : "Connecting to Cryptography & Security center...")}>
+            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Trung tâm Mật mã học..." : "Connecting to Cryptography & Security center...")}>
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold font-mono">02</div>
-                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-lg font-mono">02</div>
+                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
                   {lang === "vi" ? "Mật Mã Học & An Toàn Số" : "Cryptography & Digital Security"}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
                   {lang === "vi" 
                     ? "Nghiên cứu mật mã sau lượng tử, chữ ký số bảo mật tuyệt đối, an toàn hạ tầng thông tin quốc gia và ứng dụng Blockchain chống giả mạo."
                     : "Pioneering post-quantum cipher suites, secure electronic signatures, federal info-safety, and blockless anti-tampering designs."}
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
                 <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
                 <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
             {/* Card 3: Math Modeling */}
-            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Lab Toán ứng dụng..." : "Connecting to Applied Mathematics Lab...")}>
+            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Lab Toán ứng dụng..." : "Connecting to Applied Mathematics Lab...")}>
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold font-mono">03</div>
-                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg font-mono">03</div>
+                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
                   {lang === "vi" ? "Toán Ứng Dụng & Mô Hình Hóa" : "Applied Math & Modeling"}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
                   {lang === "vi" 
                     ? "Phát triển công cụ phân tích mô phỏng dòng chảy, tối ưu hóa giao thông đô thị tự động, định phí bảo hiểm Actuary và phân tích rủi ro tài chính súc tích."
                     : "Simulating multivariable flow dynamics, urban traffic grid optimization, professional actuaries, and financial quantitative models."}
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
                 <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
                 <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
             {/* Card 4: Global Publications */}
-            <div className="bg-white rounded-2xl border border-[#003366]/20 bg-linear-to-b from-white to-sky-50/20 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Mở danh mục công bố Scopus/ISI..." : "Opening Scopus/ISI publications database...")}>
+            <div className="bg-white rounded-2xl border border-sky-600/20 bg-linear-to-b from-white to-sky-50/20 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Mở danh mục công bố Scopus/ISI..." : "Opening Scopus/ISI publications database...")}>
               <div className="space-y-4">
-                <div className="w-10 h-10 rounded-xl bg-[#003366]/10 text-[#003366] flex items-center justify-center font-bold font-mono">04</div>
-                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-sky-600/10 text-sky-600 flex items-center justify-center font-bold text-lg font-mono">04</div>
+                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
                   {lang === "vi" ? "Công Bố Quốc Tế Cao Cấp" : "Prestigious Global Papers"}
                 </h4>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
                   {lang === "vi" 
                     ? "Hàng chục công trình công bố chất lượng xuất sắc hàng năm trên các tạp chí quốc tế nhóm đầu như Acta Mathematica, Nature Machine Intelligence."
                     : "Scores of premium journals published annually in standard tier-1 journals such as Acta Mathematica and Nature Machine Intelligence."}
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
                 <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
                 <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>
@@ -1357,12 +1372,12 @@ export default function App() {
 
           </div>
 
-          <div className="text-center mt-12">
+          <div className="pt-2 text-center">
             <button 
               onClick={() => showToast(lang === "vi" ? "Đang kết nối để hiển thị Lưu trữ Nghiên cứu khoa học..." : "Opening Scientific Research Archive Database...")}
-              className="inline-flex items-center gap-2 bg-[#003366] text-[#e2b13c] hover:bg-[#002244] font-black text-xs py-3.5 px-8 rounded-lg shadow-md transition-all cursor-pointer uppercase"
+              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-sky-600 hover:text-sky-700 font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-sky-600 transition-all cursor-pointer shadow-3xs"
             >
-              <span>{lang === "vi" ? "Xem thêm thông số & công trình" : "Venture research archive"}</span>
+              <span>{lang === "vi" ? "Xem thêm" : "Read more"}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -1402,8 +1417,8 @@ export default function App() {
                 onClick={() => showToast(lang === "vi" ? "Đang kết nối Viện Nghiên cứu Cao cấp về Toán (VIASM)..." : "Connecting to Vietnam Institute for Advanced Study in Mathematics (VIASM)...")}
                 className="flex items-center gap-3.5 hover:opacity-85 transition-opacity cursor-pointer group"
               >
-                <div className="w-12 h-12 rounded-lg bg-[#003366] flex items-center justify-center text-white font-black text-xl tracking-tight shadow-sm">∑</div>
-                <span className="text-[#003366] text-2xl md:text-3xl font-black tracking-tight font-display">VIASM</span>
+                <div className="w-12 h-12 rounded-lg bg-sky-600 flex items-center justify-center text-white font-black text-xl tracking-tight shadow-sm">∑</div>
+                <span className="text-sky-600 text-2xl md:text-3xl font-black tracking-tight font-display">VIASM</span>
               </div>
 
               {/* Google */}
@@ -1480,8 +1495,8 @@ export default function App() {
                 onClick={() => showToast(lang === "vi" ? "Đang kết nối Viện Nghiên cứu Cao cấp về Toán (VIASM)..." : "Connecting to Vietnam Institute for Advanced Study in Mathematics (VIASM)...")}
                 className="flex items-center gap-3.5 hover:opacity-85 transition-opacity cursor-pointer group"
               >
-                <div className="w-12 h-12 rounded-lg bg-[#003366] flex items-center justify-center text-white font-black text-xl tracking-tight shadow-sm">∑</div>
-                <span className="text-[#003366] text-2xl md:text-3xl font-black tracking-tight font-display">VIASM</span>
+                <div className="w-12 h-12 rounded-lg bg-sky-600 flex items-center justify-center text-white font-black text-xl tracking-tight shadow-sm">∑</div>
+                <span className="text-sky-600 text-2xl md:text-3xl font-black tracking-tight font-display">VIASM</span>
               </div>
 
               {/* Google */}
@@ -1559,42 +1574,49 @@ export default function App() {
       {/* 8. FOOTER & CONTACT INFO                   */}
       {/* ========================================== */}
       
-      <footer id="contact" className="bg-[#003366] text-slate-300 pt-16 pb-12 border-t border-sky-900/40">
-        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-12">
+      <footer id="contact" className="bg-sky-600 text-sky-100 pt-12 pb-8 border-t border-sky-500 mt-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-8">
           
           {/* Column 1: Branding block (col-span-4) */}
           <div className="md:col-span-4 space-y-4">
             <h4 className="text-white text-2xl font-black font-display tracking-tight hover:text-sky-300 transition-colors">
               toantin@hcmus
             </h4>
-            <p className="text-xs text-slate-400 font-medium leading-relaxed">
-              © 2026 Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM. <br />
-              Đơn vị đào tạo, cung cấp nguồn nhân lực Toán học, Tin học ứng dụng và Trí tuệ nhân tạo hàng đầu miền Nam Việt Nam.
+            <p className="text-xs text-sky-100 font-medium leading-relaxed opacity-90">
+              {lang === "vi" 
+                ? "© 2026 Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM."
+                : "© 2026 Faculty of Mathematics & Computer Science, VNUHCM-University of Science."}
+              <br />
+              {lang === "vi"
+                ? "Đơn vị đào tạo, cung cấp nguồn nhân lực Toán học, Tin học ứng dụng và Trí tuệ nhân tạo hàng đầu miền Nam Việt Nam."
+                : "The leading academic institution providing human resources in Mathematics, Applied Informatics and AI in Southern Vietnam."}
             </p>
             
             {/* Follow Us block */}
             <div className="space-y-2 pt-2">
-              <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Theo dõi chúng tôi</span>
+              <span className="block text-[10px] font-bold text-sky-200 uppercase tracking-widest opacity-80">
+                {lang === "vi" ? "Theo dõi chúng tôi" : "Follow Us"}
+              </span>
               <div className="flex items-center space-x-3.5">
                 {/* Facebook icon */}
-                <a href="https://www.facebook.com/toantin.tuvantuyensinh" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-sky-600 hover:text-white transition-all shadow-2xs">
-                  <span className="font-extrabold text-sm">F</span>
+                <a href="https://www.facebook.com/toantin.tuvantuyensinh" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-sky-500 hover:text-white transition-all shadow-2xs">
+                  <Facebook className="w-4 h-4" />
                 </a>
                 {/* LinkedIn icon */}
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-sky-600 hover:text-white transition-all shadow-2xs">
-                  <span className="font-extrabold text-sm">L</span>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-sky-500 hover:text-white transition-all shadow-2xs">
+                  <Linkedin className="w-4 h-4" />
                 </a>
                 {/* Youtube icon */}
-                <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-red-600 hover:text-white transition-all shadow-2xs">
-                  <span className="font-extrabold text-xs">YT</span>
+                <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-red-600 hover:text-white transition-all shadow-2xs">
+                  <Youtube className="w-4 h-4" />
                 </a>
                 {/* TikTok icon */}
-                <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-slate-700 hover:text-white transition-all shadow-2xs">
-                  <span className="font-extrabold text-xs">TT</span>
+                <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-slate-800 hover:text-white transition-all shadow-2xs">
+                  <Video className="w-4 h-4" />
                 </a>
                 {/* Zalo icon */}
-                <a href="https://zalo.me" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-blue-600 hover:text-white transition-all shadow-2xs">
-                  <span className="font-extrabold text-xs">Z</span>
+                <a href="https://zalo.me" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-blue-600 hover:text-white transition-all shadow-2xs">
+                  <MessageCircle className="w-4 h-4" />
                 </a>
               </div>
             </div>
@@ -1602,27 +1624,32 @@ export default function App() {
 
           {/* Column 2: Contact Specifications (col-span-5) */}
           <div className="md:col-span-5 space-y-4">
-            <h4 className="text-white text-xs font-bold tracking-widest uppercase pb-2 border-b border-slate-800">
-              Văn phòng Khoa Toán - Tin học:
+            <h4 className="text-white text-xs font-bold tracking-widest uppercase pb-2 border-b border-sky-500">
+              {lang === "vi" ? "Văn phòng Khoa Toán - Tin học:" : "Faculty Office:"}
             </h4>
             
-            <ul className="space-y-3.5 text-xs text-slate-400 font-medium">
+            <ul className="space-y-3.5 text-xs text-sky-100 font-medium">
               <li className="flex items-start gap-1.5 leading-relaxed">
-                <span className="text-sky-400 font-extrabold">•</span>
-                <span>Lầu 2, Tòa nhà C, 227 đường Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh</span>
+                <span className="text-white font-extrabold">•</span>
+                <span>
+                  {lang === "vi" 
+                    ? "Lầu 2, Tòa nhà C, 227 đường Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh"
+                    : "Floor 2, Building C, 227 Nguyen Van Cu Street, Ward 4, District 5, Ho Chi Minh City"}
+                </span>
               </li>
               <li className="flex items-start gap-1.5">
-                <span className="text-sky-400 font-extrabold">•</span>
-                <span>SĐT: (028) 3835 0006 (EXT: 4000)</span>
+                <span className="text-white font-extrabold">•</span>
+                <span>{lang === "vi" ? "SĐT" : "Phone"}: (028) 3835 0006 (EXT: 4000)</span>
               </li>
               <li className="flex items-start gap-1.5">
-                <span className="text-sky-400 font-extrabold">•</span>
+                <span className="text-white font-extrabold">•</span>
                 <span>Email: <a href="mailto:toantin@hcmus.edu.vn" className="hover:text-white transition-all">toantin@hcmus.edu.vn</a></span>
               </li>
               <li className="flex items-start gap-1.5">
-                <span className="text-sky-400 font-extrabold">•</span>
+                <span className="text-white font-extrabold">•</span>
                 <span>
-                  Tư vấn tuyển sinh: <a href="https://www.facebook.com/toantin.tuvantuyensinh" target="_blank" rel="noreferrer" className="text-sky-400 hover:text-sky-300 font-bold underline transition-colors">https://www.facebook.com/toantin.tuvantuyensinh</a>
+                  {lang === "vi" ? "Tư vấn tuyển sinh: " : "Admissions Advice: "}
+                  <a href="https://www.facebook.com/toantin.tuvantuyensinh" target="_blank" rel="noreferrer" className="text-sky-400 hover:text-sky-300 font-bold underline transition-colors">https://www.facebook.com/toantin.tuvantuyensinh</a>
                 </span>
               </li>
             </ul>
@@ -1630,29 +1657,33 @@ export default function App() {
 
           {/* Column 3: Portals & Helpdesk (col-span-3) */}
           <div className="md:col-span-3 space-y-4">
-            <h4 className="text-white text-xs font-bold tracking-widest uppercase pb-2 border-b border-slate-800">
-              Liên kết
+            <h4 className="text-white text-xs font-bold tracking-widest uppercase pb-2 border-b border-sky-500">
+              {lang === "vi" ? "Liên kết" : "Quick Links"}
             </h4>
             
-            <ul className="space-y-3 text-xs text-slate-400 font-medium">
+            <ul className="space-y-3 text-xs text-sky-100 font-medium">
               <li>
                 <a href="https://moodle.hcmus.edu.vn" target="_blank" rel="noreferrer" className="hover:text-white hover:underline transition-colors flex items-center gap-1.5">
-                  <span className="text-sky-400 font-extrabold">›</span> Moodle chương trình chuẩn
+                  <span className="text-white font-extrabold">›</span> 
+                  {lang === "vi" ? "Moodle chương trình chuẩn" : "Moodle (Standard Program)"}
                 </a>
               </li>
               <li>
                 <a href="#link-moodle-project" onClick={(e) => { e.preventDefault(); showToast("Đang kết nối tới Moodle đề án..."); }} className="hover:text-white hover:underline transition-colors flex items-center gap-1.5">
-                  <span className="text-sky-400 font-extrabold">›</span> Moodle chương trình đề án
+                  <span className="text-white font-extrabold">›</span> 
+                  {lang === "vi" ? "Moodle chương trình đề án" : "Moodle (High-Quality Program)"}
                 </a>
               </li>
               <li>
                 <a href="#helpdesk" onClick={(e) => { e.preventDefault(); showToast("Đang kết nối tới trung tâm Helpdesk..."); }} className="hover:text-white hover:underline transition-colors flex items-center gap-1.5">
-                  <span className="text-sky-400 font-extrabold">›</span> Hỗ trợ kỹ thuật Helpdesk
+                  <span className="text-white font-extrabold">›</span> 
+                  {lang === "vi" ? "Hỗ trợ kỹ thuật Helpdesk" : "Helpdesk Tech Support"}
                 </a>
               </li>
               <li>
                 <a href="https://portal.hcmus.edu.vn" target="_blank" rel="noreferrer" className="hover:text-white hover:underline transition-colors flex items-center gap-1.5">
-                  <span className="text-sky-400 font-extrabold">›</span> Giảng dạy tại Portal HCMUS
+                  <span className="text-white font-extrabold">›</span> 
+                  {lang === "vi" ? "Giảng dạy tại Portal HCMUS" : "HCMUS Faculty Portal"}
                 </a>
               </li>
             </ul>
@@ -1661,9 +1692,17 @@ export default function App() {
         </div>
 
         {/* Bottom Small Copyright Line */}
-        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] border-t border-slate-800/60 pt-5 text-center flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-500 font-medium gap-3">
-          <p>Trang thông tin chính thống của Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM.</p>
-          <p>Mã nguồn tuyển sinh được cấu trúc chuẩn hóa cho môi trường vận hành chất lượng cao.</p>
+        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] border-t border-sky-500/60 pt-5 text-center flex flex-col sm:flex-row justify-between items-center text-[10px] text-sky-200 font-medium gap-3 opacity-90">
+          <p>
+            {lang === "vi" 
+              ? "Trang thông tin chính thống của Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM."
+              : "The official portal of the Faculty of Mathematics & Computer Science, VNUHCM-US."}
+          </p>
+          <p>
+            {lang === "vi"
+              ? "Mã nguồn tuyển sinh được cấu trúc chuẩn hóa cho môi trường vận hành chất lượng cao."
+              : "Recruitment portal systematically engineered for high-availability environment."}
+          </p>
         </div>
       </footer>
 
@@ -1671,34 +1710,45 @@ export default function App() {
       {/* 10. AI ADMISSION CONSULTATION CHATBOT PANEL */}
       {/* ========================================== */}
       
-      {/* Action floating buttons (FAB) */}
+            {/* Action floating buttons (FAB) */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-2 bg-white p-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100">
         
         {/* Hotline */}
         <a 
           href="tel:02838350006"
-          className="bg-[#003366] text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all outline-none"
+          className="bg-sky-600 text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all outline-none"
           title="Hotline"
         >
           <Phone className="w-5 h-5" />
         </a>
 
+        {/* Zalo OA */}
+        <a 
+          href="https://zalo.me"
+          target="_blank"
+          rel="noreferrer"
+          className="bg-sky-600 text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all outline-none"
+          title="Nhắn tin qua Zalo OA"
+        >
+          <MessageCircle className="w-5 h-5" />
+        </a>
+
         {/* Chat */}
         <button 
           onClick={() => setChatOpen(!chatOpen)}
-          className="bg-[#003366] text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all relative outline-none"
-          title="Chat tư vấn"
+          className="bg-sky-600 text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all relative outline-none"
+          title="Chat tư vấn AI"
         >
           {chatOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
           
           {/* Unread dot signal */}
-          {!chatOpen && <span className="absolute top-0 right-0 w-3 h-3 rounded-full bg-red-500 border-2 border-[#003366] animate-pulse"></span>}
+          {!chatOpen && <span className="absolute top-0 right-0 w-3 h-3 rounded-full bg-red-500 border-2 border-sky-600 animate-pulse"></span>}
         </button>
 
         {/* Scroll To Top */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700 p-3 rounded-full hover:scale-105 active:scale-95 transition-all mt-1 outline-none"
+          className="bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-sky-600 p-3 rounded-full hover:scale-105 active:scale-95 transition-all mt-1 outline-none"
           title="Lên đầu trang"
         >
           <ChevronUp className="w-5 h-5" />
@@ -1709,10 +1759,10 @@ export default function App() {
         <div className="fixed bottom-22 right-6 w-80 md:w-96 bg-white rounded-xl border border-slate-200 shadow-2xl overflow-hidden z-50 flex flex-col h-[480px] animate-scaleUp">
           
           {/* Chat Headers */}
-          <div className="bg-[#003366] text-white p-4.5 flex justify-between items-center shrink-0 border-b border-sky-950">
+          <div className="bg-sky-600 text-white p-4.5 flex justify-between items-center shrink-0 border-b border-sky-950">
             <div className="flex items-center space-x-2.5">
               <div className="relative">
-                <div className="w-8.5 h-8.5 rounded-full bg-[#e2b13c] flex items-center justify-center font-bold text-[#003366] text-sm">
+                <div className="w-8.5 h-8.5 rounded-full bg-[#e2b13c] flex items-center justify-center font-bold text-sky-600 text-sm">
                   AI
                 </div>
                 {/* Active pulse */}
@@ -1736,7 +1786,7 @@ export default function App() {
               <div key={i} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`p-3 rounded-lg max-w-[85%] text-xs leading-normal font-medium shadow-2xs ${
                   msg.sender === "user" 
-                    ? "bg-[#0b3c5d] text-white rounded-br-none" 
+                    ? "bg-sky-700 text-white rounded-br-none" 
                     : "bg-white text-slate-700 border border-slate-100 rounded-bl-none"
                 }`}>
                   {msg.text}
@@ -1751,25 +1801,25 @@ export default function App() {
             <div className="flex flex-wrap gap-1 max-h-16 overflow-y-auto pr-0.5">
               <button 
                 onClick={() => handleBotAsk(lang === "vi" ? "Điểm chuẩn xét tuyển là bao nhiêu?" : "What is the entry score standard?")}
-                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-[#003366] text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
+                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-sky-600 text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
               >
                 {lang === "vi" ? "Điểm chuẩn xét tuyển?" : "Entry criteria?"}
               </button>
               <button 
                 onClick={() => handleBotAsk(lang === "vi" ? "Khoa có bao nhiêu chương trình học?" : "What study programs are available?")}
-                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-[#003366] text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
+                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-sky-600 text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
               >
                 {lang === "vi" ? "Các chương trình học?" : "Study streams?"}
               </button>
               <button 
                 onClick={() => handleBotAsk(lang === "vi" ? "Cơ hội học bổng và hỗ trợ thế nào?" : "Is there any scholarship program?")}
-                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-[#003366] text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
+                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-sky-600 text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
               >
                 {lang === "vi" ? "Học bổng của khoa?" : "Scholarships?"}
               </button>
               <button 
                 onClick={() => handleBotAsk(lang === "vi" ? "Học toán ra làm nghề gì?" : "What can I work after pure mathematics?")}
-                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-[#003366] text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
+                className="bg-white hover:bg-sky-50 text-slate-600 hover:text-sky-600 text-[10px] font-semibold py-1 px-2.5 rounded border border-slate-200 shadow-3xs transition-all max-w-[170px] truncate"
               >
                 {lang === "vi" ? "Học toán ra làm gì?" : "Career prospects?"}
               </button>
@@ -1789,14 +1839,14 @@ export default function App() {
                   setCustomQuestion("");
                 }
               }}
-              className="flex-1 bg-slate-50 text-xs px-3 py-2.5 rounded border border-slate-200 focus:outline-none focus:ring-1 focus:ring-[#003366]"
+              className="flex-1 bg-slate-50 text-xs px-3 py-2.5 rounded border border-slate-200 focus:outline-none focus:ring-1 focus:ring-sky-600"
             />
             <button 
               onClick={() => {
                 handleBotAsk(customQuestion);
                 setCustomQuestion("");
               }}
-              className="bg-[#003366] text-[#e2b13c] font-black text-xs px-3 py-2.5 rounded hover:bg-[#002244] transition-all shrink-0"
+              className="bg-sky-600 text-[#e2b13c] font-black text-xs px-3 py-2.5 rounded hover:bg-sky-700 transition-all shrink-0"
             >
               {t("send")}
             </button>
@@ -1809,7 +1859,7 @@ export default function App() {
       {toast.visible && (
         <div 
           id="toast-banner" 
-          className="fixed bottom-6 left-6 z-50 max-w-xs md:max-w-sm bg-[#002244] text-white border-l-4 border-[#e2b13c] py-3 px-4.5 rounded shadow-2xl flex items-center justify-between gap-3 animate-fadeIn duration-200"
+          className="fixed bottom-6 left-6 z-50 max-w-xs md:max-w-sm bg-sky-700 text-white border-l-4 border-[#e2b13c] py-3 px-4.5 rounded shadow-2xl flex items-center justify-between gap-3 animate-fadeIn duration-200"
         >
           <div className="flex items-center gap-2.5">
             <CheckCircle className="w-5 h-5 text-[#e2b13c] shrink-0" />
