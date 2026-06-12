@@ -380,6 +380,22 @@ export default function App() {
     setTimeout(() => setCopiedAddress(false), 2000);
   };
 
+  // Clean title helper to strip "Thông báo" prefixes
+  const cleanTitle = (titleStr: string): string => {
+    let clean = titleStr.trim();
+    // Case-insensitive replacement for Vietnamese
+    clean = clean.replace(/^(thông báo về việc|thông báo v\/v|thông báo v\.v|thông báo tuyển học|thông báo tuyển sinh|thông báo)/i, "");
+    // Case-insensitive replacement for English
+    clean = clean.replace(/^(notice regarding|notice on they|notice on|notice about|notice of|notice)/i, "");
+    // Clean up any leading spaces, punctuation, dashes
+    clean = clean.replace(/^[\s\-\/:,]+/, "");
+    // Capitalize first letter
+    if (clean.length > 0) {
+      clean = clean.charAt(0).toUpperCase() + clean.slice(1);
+    }
+    return clean;
+  };
+
   // Submit Contact Form Simulated
   const handleContactSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -450,29 +466,29 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-slate-50 text-slate-800 antialiased selection:bg-sky-200 selection:text-sky-900">
+    <div className="min-h-screen flex flex-col font-sans bg-slate-50 text-slate-800 antialiased selection:bg-sky-200 selection:text-[#003366]">
       
       {/* ========================================== */}
       {/* 1. MAIN HEADER & BRANDING & LANGUAGE BAR   */}
       {/* ========================================== */}
       
-      <header id="main-header" className="bg-white border-b border-sky-100 py-3.5 shadow-xs relative z-45">
+      <header id="main-header" className="bg-white border-b border-slate-100 py-3.5 shadow-xs relative z-45">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Branding Left */}
           <div className="flex items-center space-x-3.5">
             {/* Elegant SVG Academic Emblem Seal representation of HCMUS */}
-            <div className="w-12 h-12 bg-gradient-to-br from-sky-600 to-sky-500 rounded-lg p-2 flex items-center justify-center text-white shrink-0 shadow-sm">
+            <div className="w-12 h-12 bg-[#003366] rounded-lg p-2 flex items-center justify-center text-white shrink-0 shadow-sm">
               <span className="font-serif font-black text-xl tracking-wider text-white">U</span>
             </div>
             
-            <div className="border-l-2 border-sky-500 pl-3.5 py-0.5">
+            <div className="border-l-2 border-[#003366] pl-3.5 py-0.5">
               <p className="text-[10px] md:text-xs font-semibold tracking-wide text-slate-500 leading-tight">
                 {t("titleVnu")}
               </p>
-              <p className="text-[11px] md:text-xs font-bold tracking-wide text-sky-800 leading-tight">
+              <p className="text-[11px] md:text-xs font-bold tracking-wide text-[#003366] leading-tight">
                 {t("titleSchool")}
               </p>
-              <h1 className="text-base md:text-xl font-extrabold tracking-tight text-sky-600 mt-0.5 font-display flex items-center gap-1.5">
+              <h1 className="text-base md:text-xl font-extrabold tracking-tight text-[#003366] mt-0.5 font-display flex items-center gap-1.5">
                 KHOA TOÁN - TIN HỌC
               </h1>
             </div>
@@ -486,11 +502,11 @@ export default function App() {
                 placeholder={lang === "vi" ? "Tìm kiếm thông tin..." : "Search..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-slate-50 text-slate-800 placeholder-slate-400 text-xs rounded-full py-2 px-3.5 pl-8 w-44 sm:w-56 focus:outline-none focus:ring-1 focus:ring-sky-500 border border-slate-200 transition-all shadow-3xs"
+                className="bg-slate-50 text-slate-800 placeholder-slate-400 text-xs rounded-full py-2 px-3.5 pl-8 w-44 sm:w-56 focus:outline-none focus:ring-1 focus:ring-[#003366] border border-slate-200 transition-all shadow-3xs"
               />
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
               {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="absolute right-2.5 top-2.5 text-slate-400 hover:text-sky-600">
+                <button onClick={() => setSearchTerm("")} className="absolute right-2.5 top-2.5 text-slate-400 hover:text-[#003366]">
                   <X className="w-3 h-3" />
                 </button>
               )}
@@ -499,13 +515,13 @@ export default function App() {
             <div className="flex bg-slate-100 rounded-full p-0.5 border border-slate-200">
               <button 
                 onClick={() => setLang("vi")} 
-                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "vi" ? "bg-sky-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
+                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "vi" ? "bg-[#003366] text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
               >
                 VI
               </button>
               <button 
                 onClick={() => setLang("en")} 
-                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "en" ? "bg-sky-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
+                className={`px-3 py-1 rounded-full text-[10px] font-extrabold transition-all ${lang === "en" ? "bg-[#003366] text-white shadow-xs" : "text-slate-600 hover:text-slate-900"}`}
               >
                 EN
               </button>
@@ -514,7 +530,7 @@ export default function App() {
             {/* Mobile Hamburger Toggle */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-              className="lg:hidden p-2 text-slate-700 hover:text-sky-600 hover:bg-slate-100 rounded-md transition-colors"
+              className="lg:hidden p-2 text-slate-700 hover:text-[#003366] hover:bg-slate-100 rounded-md transition-colors"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -527,82 +543,82 @@ export default function App() {
       {/* 2. NAVIGATION BAR (Desktop nested menus)     */}
       {/* ========================================== */}
       
-      <nav id="navigation" className="bg-sky-600 text-white shadow-md relative z-30 hidden lg:block border-b border-sky-400/20">
+      <nav id="navigation" className="bg-[#003366] text-white shadow-md relative z-30 hidden lg:block border-b border-sky-400/10">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px]">
           <div className="flex items-center h-12">
             <ul className="flex space-x-1 h-full">
               {/* Trang chủ */}
               <li className="h-full">
-                <a href="#hero-slider" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap">
+                <a href="#hero-slider" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap">
                   Trang chủ
                 </a>
               </li>
 
               {/* Giới thiệu */}
               <li className="relative group/main h-full">
-                <a href="#intro" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                <a href="#intro" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
                   Giới thiệu
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
-                  <a href="#welcome-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Tổng quan</a>
+                  <a href="#welcome-section" className="block px-4 py-2 text-xs font-bold text-[#003366] hover:bg-sky-50 transition-colors">Tổng quan</a>
                   
                   {/* Cơ cấu tổ chức */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
                       <span>Cơ cấu tổ chức</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-60 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#board" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Ban Chủ nhiệm</a>
-                      <a href="#council" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Hội đồng khoa học</a>
-                      <a href="#departments" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Bộ môn</a>
-                      <a href="#faculty" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Thông tin đội ngũ</a>
+                      <a href="#board" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Ban Chủ nhiệm</a>
+                      <a href="#council" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Hội đồng khoa học</a>
+                      <a href="#departments" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bộ môn</a>
+                      <a href="#faculty" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Thông tin đội ngũ</a>
                     </div>
                   </div>
 
-                  <a href="#party" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Đảng - Đoàn thể</a>
-                  <a href="#branding" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Bộ nhận diện thương hiệu</a>
+                  <a href="#party" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Đảng - Đoàn thể</a>
+                  <a href="#branding" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bộ nhận diện thương hiệu</a>
                 </div>
               </li>
 
               {/* Tin tức - Sự kiện */}
               <li className="h-full">
-                <a href="#news-section" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap">
+                <a href="#news-section" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap">
                   Tin tức - Sự kiện
                 </a>
               </li>
 
               {/* Đào tạo */}
               <li className="relative group/main h-full">
-                <a href="#edu-programs" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                <a href="#edu-programs" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
                   Đào tạo
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
                   {/* Đại học */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
                       <span>Đại học</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-64 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Chương trình Chuẩn</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Chương trình Cử nhân tài năng</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Chương trình Tăng cường tiếng Anh</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Chương trình Chuẩn</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Chương trình Cử nhân tài năng</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Chương trình Tăng cường tiếng Anh</a>
                     </div>
                   </div>
 
                   {/* Sau đại học */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
                       <span>Sau đại học</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-72 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Bậc Thạc sĩ</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Bậc Tiến sĩ</a>
-                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Thạc sĩ Toán ứng dụng Pháp - Việt</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bậc Thạc sĩ</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Bậc Tiến sĩ</a>
+                      <a href="#edu-programs" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Thạc sĩ Toán ứng dụng Pháp - Việt</a>
                     </div>
                   </div>
                 </div>
@@ -610,50 +626,50 @@ export default function App() {
 
               {/* Nghiên cứu - Hợp tác */}
               <li className="relative group/main h-full">
-                <a href="#research" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                <a href="#research" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
                   Nghiên cứu - Hợp tác
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
                   {/* Nghiên cứu */}
                   <div className="relative group/nested">
-                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 cursor-pointer transition-colors">
+                    <div className="flex justify-between items-center px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] cursor-pointer transition-colors">
                       <span>Nghiên cứu</span>
                       <ChevronRight className="w-3 h-3 text-slate-400" />
                     </div>
                     <div className="absolute left-full top-0 w-60 bg-white rounded-md shadow-2xl border border-slate-100 py-1.5 hidden group-hover/nested:block text-slate-700">
-                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Định hướng nghiên cứu</a>
-                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Công trình NCKH</a>
-                      <a href="#research font" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Công bố khoa học</a>
-                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-sky-600 transition-colors">Hoạt động học thuật</a>
+                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Định hướng nghiên cứu</a>
+                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Công trình NCKH</a>
+                      <a href="#research font" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Công bố khoa học</a>
+                      <a href="#research" className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-sky-50 hover:text-[#003366] transition-colors">Hoạt động học thuật</a>
                     </div>
                   </div>
 
-                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Quan hệ doanh nghiệp</a>
-                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Hợp tác quốc tế</a>
+                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Quan hệ doanh nghiệp</a>
+                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Hợp tác quốc tế</a>
                 </div>
               </li>
 
               {/* Hỗ trợ người học */}
               <li className="relative group/main h-full">
-                <a href="#students" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap gap-1">
+                <a href="#students" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap gap-1">
                   Hỗ trợ người học
                   <ChevronRight className="w-3 h-3 rotate-90" />
                 </a>
                 <div className="absolute left-0 mt-0 w-64 bg-white rounded-b-md shadow-2xl border border-slate-100 py-2 hidden group-hover/main:block text-slate-800 z-50">
-                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Giáo viên chủ nhiệm</a>
-                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Cố vấn học tập</a>
-                  <a href="#resources" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Tài nguyên học vụ</a>
-                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Học bổng</a>
-                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Cơ hội việc làm</a>
-                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Quy trình - Biểu mẫu</a>
-                  <a href="#alumni" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors">Cựu sinh viên</a>
+                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Giáo viên chủ nhiệm</a>
+                  <a href="#advisor" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Cố vấn học tập</a>
+                  <a href="#resources" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Tài nguyên học vụ</a>
+                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Học bổng</a>
+                  <a href="#news-section" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Cơ hội việc làm</a>
+                  <a href="#contact" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Quy trình - Biểu mẫu</a>
+                  <a href="#alumni" className="block px-4 py-2 text-xs font-bold text-slate-700 hover:bg-sky-50 hover:text-[#003366] transition-colors">Cựu sinh viên</a>
                 </div>
               </li>
 
               {/* Tuyển sinh */}
               <li className="h-full">
-                <a href="#contact" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-sky-700 hover:text-white transition-all whitespace-nowrap">
+                <a href="#contact" className="px-4.5 h-full flex items-center text-xs font-bold uppercase hover:bg-[#002244] hover:text-white transition-all whitespace-nowrap">
                   Tuyển sinh
                 </a>
               </li>
@@ -854,43 +870,33 @@ export default function App() {
                     />
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Content & Stats grid Right (Col 7) */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="pb-4 border-b border-slate-200/50">
-                <h2 className="text-2xl md:text-3.5xl font-black text-slate-900 tracking-tight font-display uppercase">
-                  {lang === "vi" ? "GIỚI THIỆU CHUNG" : "ABOUT THE FACULTY"}
-                </h2>
-              </div>
-              
-              <div className="space-y-3.5 text-sm text-slate-600 leading-relaxed font-medium">
-                <p>
-                  Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM được thành lập lâu đời và là đơn vị đào tạo, cung cấp nguồn nhân lực chất lượng cao hàng đầu khu vực phía Nam về lĩnh vực Toán học, Tin học ứng dụng, Khoa học dữ liệu và Trí tuệ nhân tạo. Hiện tại, Khoa đang đào tạo bậc Đại học các ngành mũi nhọn có tính ứng dụng cao, phục vụ mạnh mẽ cho sự phát triển của cách mạng công nghiệp và chuyển đổi số.
-                </p>
-                <p>
-                  Ngành Toán học và các chương trình liên kết của Khoa đã đạt tiêu chuẩn kiểm định quốc tế AUN-QA (Asean University Network Quality Assurance) khẳng định uy tín và chất lượng đào tạo vượt trội.
-                </p>
-              </div>
+                 </div>
 
               {/* Statistics grid layout */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
                 <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-sky-600 font-display">2000+</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">Sinh viên Đại học</p>
+                  <p className="text-2xl font-black text-[#003366] font-display">2000+</p>
+                  <p className="text-[11px] font-bold text-slate-500 mt-1">
+                    {lang === "vi" ? "Sinh viên Đại học" : "Undergraduates"}
+                  </p>
                 </div>
                 <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-sky-600 font-display">100+</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">Giảng viên chất lượng</p>
+                  <p className="text-2xl font-black text-[#003366] font-display">100+</p>
+                  <p className="text-[11px] font-bold text-slate-500 mt-1">
+                    {lang === "vi" ? "Giảng viên chất lượng" : "Quality Faculty"}
+                  </p>
                 </div>
                 <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-sky-600 font-display">30-50</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">Đề tài NCKH hàng năm</p>
+                  <p className="text-2xl font-black text-[#003366] font-display">30-50</p>
+                  <p className="text-[11px] font-bold text-slate-500 mt-1">
+                    {lang === "vi" ? "Đề tài NCKH hàng năm" : "Research Projects / yr"}
+                  </p>
                 </div>
                 <div className="p-3 bg-sky-50/50 rounded-xl border border-sky-100/35">
-                  <p className="text-2xl font-black text-sky-600 font-display">70-100</p>
-                  <p className="text-[11px] font-bold text-slate-500 mt-1">Công bố khoa học/năm</p>
+                  <p className="text-2xl font-black text-[#003366] font-display">70-100</p>
+                  <p className="text-[11px] font-bold text-slate-500 mt-1">
+                    {lang === "vi" ? "Công báo khoa học/năm" : "Papers / yr"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -907,12 +913,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full">
           
           {/* Header of News & Events section */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200/60 pb-5 mb-8 gap-4">
-            <div>
-              <h2 className="text-2xl md:text-3.5xl font-black text-slate-900 tracking-tight font-display uppercase">
-                {t("secNewsTitle")}
-              </h2>
-            </div>
+          <div className="text-center pb-6 border-b border-slate-200/50 mb-10">
+            <h2 className="text-2xl md:text-3.5xl font-black text-[#003366] tracking-tight font-display uppercase">
+              {t("secNewsTitle")}
+            </h2>
           </div>
 
           {filteredNews.length === 0 ? (
@@ -921,91 +925,94 @@ export default function App() {
               Không tìm thấy bài viết tin tức nào khớp với kết quả chọn của bạn.
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-14">
-              
-              {/* Highlighted Article - Left Column (col 7) */}
-              <div 
-                className="lg:col-span-7 group flex flex-col justify-between h-full bg-white rounded-2xl border border-slate-200/50 p-5 shadow-3xs hover:shadow-md hover:border-sky-305 transition-all cursor-pointer"
-                onClick={() => showToast(lang === 'vi' ? `Đang mở tin tức: ${filteredNews[0].title}` : `Opening story: ${filteredNews[0].titleEn}`)}
-              >
-                <div>
-                  <div className="w-full aspect-[16/10] overflow-hidden rounded-xl bg-slate-100 relative shadow-4xs shrink-0">
-                    <img 
-                      src={filteredNews[0].imageUrl} 
-                      alt={lang === "vi" ? filteredNews[0].title : filteredNews[0].titleEn}
-                      className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                  
-                  <h5 className="text-[15px] md:text-[17px] font-black text-sky-900 group-hover:text-sky-650 transition-colors uppercase font-sans tracking-tight leading-snug mt-4">
-                    {lang === "vi" ? filteredNews[0].title : filteredNews[0].titleEn}
-                  </h5>
-                  
-                  <div className="text-xs text-slate-500 font-mono font-bold mt-1.5 block">
-                    {filteredNews[0].date}
-                  </div>
-
-                  {filteredNews[0].sdgs && filteredNews[0].sdgs.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-2 mb-1">
-                      {filteredNews[0].sdgs.map((sdg) => renderMiniSdgSquare(sdg))}
-                    </div>
-                  )}
-
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-semibold mt-3 text-justify line-clamp-3">
-                    {lang === "vi" ? filteredNews[0].summary : filteredNews[0].summaryEn}
-                  </p>
-                </div>
-              </div>
-
-              {/* Stack of Secondary Articles - Right Column (col 5) */}
-              <div className="lg:col-span-5 flex flex-col gap-5">
-                {filteredNews.slice(1, 4).map((item) => (
-                  <article 
-                    key={item.id}
-                    onClick={() => showToast(lang === 'vi' ? `Đang mở bài viết: ${item.title}` : `Opening story: ${item.titleEn}`)}
-                    className="flex flex-col sm:flex-row items-stretch gap-4 p-3 rounded-2xl border border-slate-200/50 bg-white hover:border-sky-305 hover:shadow-3xs transition-all cursor-pointer group"
-                  >
-                    {/* Landscape thumbnail */}
-                    <div className="w-full sm:w-36 h-24 rounded-xl overflow-hidden shrink-0 relative bg-slate-100 self-center sm:self-stretch shadow-4xs">
+            <div>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
+                
+                {/* Highlighted Article - Left Column (col 7) */}
+                <div 
+                  className="lg:col-span-7 group flex flex-col justify-between h-full bg-white rounded-2xl border border-slate-200/50 p-5 shadow-3xs hover:shadow-md hover:border-sky-305 transition-all cursor-pointer"
+                  onClick={() => showToast(lang === 'vi' ? `Đang mở tin tức: ${filteredNews[0].title}` : `Opening story: ${filteredNews[0].titleEn}`)}
+                >
+                  <div>
+                    <div className="w-full aspect-[16/10] overflow-hidden rounded-xl bg-slate-100 relative shadow-4xs shrink-0">
                       <img 
-                        src={item.imageUrl} 
-                        alt={lang === "vi" ? item.title : item.titleEn}
-                        className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
+                        src={filteredNews[0].imageUrl} 
+                        alt={lang === "vi" ? filteredNews[0].title : filteredNews[0].titleEn}
+                        className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                       />
                     </div>
                     
-                    {/* Text detail */}
-                    <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0 text-left">
-                      <div className="space-y-1">
-                        <h6 className="text-[13px] font-black text-sky-900 group-hover:text-sky-600 leading-snug line-clamp-2 uppercase font-sans">
-                          {lang === "vi" ? item.title : item.titleEn}
-                        </h6>
-                        
-                        <span className="text-[10px] text-slate-500 font-mono font-bold block mt-1.5">
-                          {item.date}
-                        </span>
+                    <h5 className="text-[15px] md:text-[17px] font-black text-sky-900 group-hover:text-sky-650 transition-colors uppercase font-sans tracking-tight leading-snug mt-4">
+                      {lang === "vi" ? filteredNews[0].title : filteredNews[0].titleEn}
+                    </h5>
+                    
+                    <div className="text-xs text-slate-500 font-mono font-bold mt-1.5 block">
+                      {filteredNews[0].date}
+                    </div>
+
+                    {filteredNews[0].sdgs && filteredNews[0].sdgs.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-2 mb-1">
+                        {filteredNews[0].sdgs.map((sdg) => renderMiniSdgSquare(sdg))}
+                      </div>
+                    )}
+
+                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-semibold mt-3 text-justify line-clamp-3">
+                      {lang === "vi" ? filteredNews[0].summary : filteredNews[0].summaryEn}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Stack of Secondary Articles - Right Column (col 5) */}
+                <div className="lg:col-span-5 flex flex-col gap-5">
+                  {filteredNews.slice(1, 4).map((item) => (
+                    <article 
+                      key={item.id}
+                      onClick={() => showToast(lang === 'vi' ? `Đang mở bài viết: ${item.title}` : `Opening story: ${item.titleEn}`)}
+                      className="flex flex-col sm:flex-row items-stretch gap-4 p-3 rounded-2xl border border-slate-200/50 bg-white hover:border-[#003366] hover:shadow-3xs transition-all cursor-pointer group"
+                    >
+                      {/* Landscape thumbnail */}
+                      <div className="w-full sm:w-36 h-24 rounded-xl overflow-hidden shrink-0 relative bg-slate-100 self-center sm:self-stretch shadow-4xs">
+                        <img 
+                          src={item.imageUrl} 
+                          alt={lang === "vi" ? item.title : item.titleEn}
+                          className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-300"
+                          referrerPolicy="no-referrer"
+                        />
                       </div>
                       
-                      {item.sdgs && item.sdgs.length > 0 && (
-                        <div className="flex gap-1.5 pt-2">
-                          {item.sdgs.map((sdg) => renderMiniSdgSquare(sdg))}
+                      {/* Text detail */}
+                      <div className="flex-1 flex flex-col justify-between py-0.5 min-w-0 text-left">
+                        <div className="space-y-1">
+                          <h6 className="text-[13px] font-black text-sky-900 group-hover:text-[#003366] leading-snug line-clamp-2 uppercase font-sans">
+                            {lang === "vi" ? item.title : item.titleEn}
+                          </h6>
+                          
+                          <span className="text-[10px] text-slate-500 font-mono font-bold block mt-1.5">
+                            {item.date}
+                          </span>
                         </div>
-                      )}
-                    </div>
-                  </article>
-                ))}
-                
-                <div className="pt-2 mt-4 text-center">
-                  <button 
-                    onClick={() => showToast(lang === "vi" ? "Đang chuyển hướng tới trang Lưu trữ danh mục Tin tức..." : "Navigating to News Archive Catalog...")}
-                    className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-sky-800 font-extrabold text-xs py-2 px-6 rounded-lg border border-slate-205 transition-all cursor-pointer shadow-3xs"
-                  >
-                    {lang === "vi" ? "Xem thêm" : "Read more"}
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </button>
+                        
+                        {item.sdgs && item.sdgs.length > 0 && (
+                          <div className="flex gap-1.5 pt-2">
+                            {item.sdgs.map((sdg) => renderMiniSdgSquare(sdg))}
+                          </div>
+                        )}
+                      </div>
+                    </article>
+                  ))}
                 </div>
+              </div>
+
+              {/* Center aligned read more button */}
+              <div className="text-center pt-4 mb-4">
+                <button 
+                  onClick={() => showToast(lang === "vi" ? "Đang chuyển hướng tới trang Lưu trữ danh mục Tin tức..." : "Navigating to News Archive Catalog...")}
+                  className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-[#003366] hover:text-[#002244] font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-[#003366] transition-all cursor-pointer shadow-3xs"
+                >
+                  {lang === "vi" ? "Xem thêm" : "Read more"}
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
           )}
@@ -1016,40 +1023,34 @@ export default function App() {
           {/* Section 5B: Student Announcements Slider (As requested - Moved below as a horizontal slider) */}
           <div id="student-alerts" className="w-full space-y-6">
             {/* Announcements Header block */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200/50 pb-5 text-left">
-              <div>
-                <h2 className="text-2xl md:text-3.5xl font-black text-slate-900 tracking-tight font-display uppercase">
-                  {lang === "vi" ? "THÔNG BÁO CHO NGƯỜI HỌC" : "ACADEMIC ANNOUNCEMENTS"}
-                </h2>
-              </div>
-
+            <div className="flex flex-col items-center justify-center border-b border-slate-200/50 pb-5 mb-8 w-full text-center relative">
+              <h2 className="text-2xl md:text-3.5xl font-black text-[#003366] tracking-tight font-display uppercase">
+                {lang === "vi" ? "THÔNG BÁO CHO NGƯỜI HỌC" : "ACADEMIC ANNOUNCEMENTS"}
+              </h2>
               {/* Navigation buttons */}
-              <div className="flex items-center justify-end gap-4 shrink-0">
-                {/* Slider manual arrow controllers */}
-                <div className="flex items-center gap-2">
-                  <button 
-                    onClick={() => {
-                      if (notifSliderRef.current) {
-                        notifSliderRef.current.scrollBy({ left: -340, behavior: 'smooth' });
-                      }
-                    }}
-                    className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-sky-500 hover:text-sky-600 flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
-                    aria-label="Scroll left"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button 
-                    onClick={() => {
-                      if (notifSliderRef.current) {
-                        notifSliderRef.current.scrollBy({ left: 340, behavior: 'smooth' });
-                      }
-                    }}
-                    className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-sky-500 hover:text-sky-600 flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
-                    aria-label="Scroll right"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
+              <div className="absolute right-0 flex items-center gap-2 hidden md:flex shrink-0">
+                <button 
+                  onClick={() => {
+                    if (notifSliderRef.current) {
+                      notifSliderRef.current.scrollBy({ left: -340, behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-[#003366] hover:text-[#003366] flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button 
+                  onClick={() => {
+                    if (notifSliderRef.current) {
+                      notifSliderRef.current.scrollBy({ left: 340, behavior: 'smooth' });
+                    }
+                  }}
+                  className="w-8 h-8 rounded-full border border-slate-200 bg-white text-slate-600 hover:border-[#003366] hover:text-[#003366] flex items-center justify-center transition-all cursor-pointer shadow-3xs active:scale-95"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
@@ -1068,38 +1069,36 @@ export default function App() {
                   filteredNotifs.map((notif) => (
                     <div 
                       key={notif.id}
-                      onClick={() => showToast(lang === 'vi' ? `Mở tài liệu thông báo: ${notif.title}` : `Opening publication: ${notif.titleEn}`)}
-                      className="w-80 shrink-0 bg-white border border-slate-200/55 p-5 rounded-2xl flex flex-col justify-between hover:border-sky-305 hover:shadow-xs hover:translate-y-[-2px] transition-all duration-300 snap-start cursor-pointer group shadow-3xs text-left"
+                      onClick={() => showToast(lang === 'vi' ? `Mở thông báo: ${notif.title}` : `Opening notice: ${notif.titleEn}`)}
+                      className="w-80 shrink-0 bg-white border border-slate-200/60 p-5 rounded-2xl flex flex-col justify-between hover:border-[#003366] hover:shadow-md hover:translate-y-[-2px] transition-all duration-300 snap-start cursor-pointer group shadow-3xs text-left"
                     >
-                      <div>
-                        {/* Title */}
-                        <p className="text-xs sm:text-[13px] font-extrabold text-slate-800 group-hover:text-sky-600 leading-relaxed font-sans line-clamp-3 my-3">
-                          {lang === "vi" ? notif.title : notif.titleEn}
-                        </p>
-
-                        <div className="flex items-center justify-between gap-3 mt-2">
-                          {/* Date Info */}
-                          <span className="text-[10px] text-slate-500 font-mono font-bold block">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                          <span className="text-[10px] text-slate-500 font-mono font-bold flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-slate-400 shrink-0" />
                             {notif.date} {notif.month} 2026
                           </span>
-
-                          {/* Level indicator tag */}
+                          
                           {notif.priority && (notif.priority === "Khẩn" || notif.priority === "Quan trọng") && (
-                            <div className="shrink-0">
+                            <div className="shrink-0 flex items-center">
                               {notif.priority === "Khẩn" ? (
                                 <span className="inline-flex items-center gap-1 text-[8px] font-black text-red-650 bg-red-50 border border-red-100 py-0.5 px-2 rounded-md shadow-3xs">
                                   <span className="w-1 h-1 bg-red-500 rounded-full animate-ping shrink-0"></span>
                                   {lang === "vi" ? "Khẩn" : "URGENT"}
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1 text-[8px] font-black text-amber-750 bg-amber-50 border border-amber-100 py-0.5 px-2 rounded-md shadow-3xs">
-                                  <span className="w-1 h-1 bg-amber-500 rounded-full shrink-0"></span>
+                                <span className="inline-flex items-center gap-1 text-[8px] font-black text-amber-755 bg-amber-50 border border-amber-100 py-0.5 px-2 rounded-md shadow-3xs">
+                                  <span className="w-1 h-1 bg-amber-500 rounded-full shrink-0 animate-pulse"></span>
                                   {lang === "vi" ? "Quan trọng" : "VITAL"}
                                 </span>
                               )}
                             </div>
                           )}
                         </div>
+
+                        <h5 className="text-[13px] md:text-sm font-black text-slate-900 group-hover:text-[#003366] transition-colors leading-snug font-sans line-clamp-3">
+                          {cleanTitle(lang === "vi" ? notif.title : notif.titleEn)}
+                        </h5>
                       </div>
                     </div>
                   ))
@@ -1110,7 +1109,7 @@ export default function App() {
             <div className="pt-6 text-center">
               <button 
                 onClick={(e) => { e.preventDefault(); showToast(lang === 'vi' ? "Đang liên kết toàn bộ lưu trữ thông báo học vụ..." : "Loading database of all historically stored announcements..."); }}
-                className="inline-flex items-center gap-2 justify-center bg-white hover:bg-slate-50 text-sky-800 font-extrabold text-xs py-2 px-6 rounded-lg border border-slate-205 transition-all cursor-pointer shadow-3xs"
+                className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-[#003366] hover:text-[#002244] font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-[#003366] transition-all cursor-pointer shadow-3xs"
               >
                 <span>{lang === "vi" ? "Xem thêm" : "Read more"}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -1125,65 +1124,51 @@ export default function App() {
       {/* 6. KHỐI CÁC CHƯƠNG TRÌNH ĐÀO TẠO TRỌNG ĐIỂM */}
       {/* ========================================== */}
       
-      <section id="edu-programs" className="bg-gradient-to-b from-sky-900 to-sky-950 py-16 text-white relative overflow-hidden">
+      <section id="edu-programs" className="bg-[#003366] py-16 text-white relative overflow-hidden">
         {/* Subtle geometric digital background details representing mathematical concepts */}
         <div className="absolute inset-0 opacity-5 pointer-events-none">
-          <div className="absolute top-10 right-10 text-9xl font-serif">∑</div>
-          <div className="absolute bottom-10 left-5 text-9xl font-mono">f(x)</div>
-          <div className="absolute top-1/2 left-1/3 text-9xl">∫</div>
+          <div className="absolute top-10 right-10 text-9xl font-serif text-white">∑</div>
+          <div className="absolute bottom-10 left-5 text-9xl font-mono text-white">f(x)</div>
+          <div className="absolute top-1/2 left-1/3 text-9xl text-white">∫</div>
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] relative z-10">
-          <div className="text-center mb-10 pb-6 border-b border-white/20">
+          <div className="text-center mb-10 pb-6 border-b border-white/25">
             <h2 className="text-2xl md:text-3.5xl font-black tracking-tight font-display text-white uppercase relative">
               {t("secProgramsTitle")}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Column 1: Đào tạo Đại học */}
-            <div className="bg-white rounded-[20px] shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
-              <div className="w-full h-56 relative overflow-hidden bg-slate-200">
-                <img 
-                  src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" 
-                  alt="Đào tạo đại học" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {STUDY_PROGRAMS.map((prog) => (
+              <div 
+                key={prog.id}
+                onClick={() => setSelectedProgram(prog)}
+                className="bg-white rounded-2xl border border-white/10 p-5 flex flex-col justify-between hover:scale-[1.02] hover:shadow-xl transition-all duration-300 cursor-pointer group text-left"
+              >
+                <div className="space-y-4">
+                  {/* Icon bubble */}
+                  <div className="w-12 h-12 rounded-xl bg-sky-50 text-[#003366] flex items-center justify-center group-hover:scale-105 transition-transform shadow-3xs">
+                    {prog.icon === "Sigma" ? <InfinityIcon className="w-6 h-6 text-[#003366]" /> :
+                     prog.icon === "Laptop" ? <Laptop className="w-6 h-6 text-[#003366]" /> :
+                     prog.icon === "Database" ? <Database className="w-6 h-6 text-[#003366]" /> :
+                     <Cpu className="w-6 h-6 text-[#003366]" />}
+                  </div>
+                  <div>
+                    <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors font-sans">
+                      {lang === "vi" ? prog.name : prog.nameEn}
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-relaxed font-semibold mt-2 line-clamp-4">
+                      {lang === "vi" ? prog.shortDesc : prog.shortDescEn}
+                    </p>
+                  </div>
+                </div>
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#003366] group-hover:text-indigo-900 transition-colors mt-4">
+                  <span>{lang === "vi" ? "Xem chi tiết" : "Spec sheet"}</span>
+                  <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-              <div className="p-6 md:p-8 flex items-center justify-between">
-                <h4 className="text-xl md:text-2xl font-black font-display text-[#003366] tracking-tight">
-                  {lang === "vi" ? "Đào tạo đại học" : "Undergraduate"}
-                </h4>
-                <button 
-                  onClick={() => showToast(lang === "vi" ? "Đang liên kết tới trang tuyển sinh chương trình Đại học..." : "Heading to Undergraduate Admissions gateway...")}
-                  className="w-12 h-12 rounded-full bg-[#003366] text-white flex items-center justify-center hover:bg-sky-800 transition-colors shadow-md outline-none"
-                >
-                  <ArrowRight className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-
-            {/* Column 2: Đào tạo Sau Đại học */}
-            <div className="bg-white rounded-[20px] shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
-              <div className="w-full h-56 relative overflow-hidden bg-slate-200">
-                <img 
-                  src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=1740&q=80" 
-                  alt="Đào tạo sau đại học" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                />
-              </div>
-              <div className="p-6 md:p-8 flex items-center justify-between">
-                <h4 className="text-xl md:text-2xl font-black font-display text-[#003366] tracking-tight">
-                  {lang === "vi" ? "Đào tạo sau đại học" : "Postgraduate"}
-                </h4>
-                <button 
-                  onClick={() => showToast(lang === "vi" ? "Đang liên kết tới trang tuyển sinh chương trình Sau Đại học..." : "Heading to Postgraduate Admissions gateway...")}
-                  className="w-12 h-12 rounded-full bg-[#003366] text-white flex items-center justify-center hover:bg-sky-800 transition-colors shadow-md outline-none"
-                >
-                  <ArrowRight className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -1273,77 +1258,113 @@ export default function App() {
         </div>
       )}
 
-
-
       {/* ========================================== */}
       {/* 6C. OUTSTANDING RESEARCH ACTIVITIES        */}
       {/* ========================================== */}
       <section id="student-activities" className="bg-slate-50 py-16 border-t border-slate-200/40">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full">
-          <div className="pb-6 border-b border-slate-200/50 mb-10 w-full text-left">
+          <div className="text-center mb-10 pb-6 border-b border-slate-200/50">
             <h2 className="text-2xl md:text-3.5xl font-black text-slate-900 font-display uppercase tracking-tight">
               {lang === "vi" ? "MỘT SỐ HOẠT ĐỘNG NGHIÊN CỨU NỔI BẬT" : "OUTSTANDING RESEARCH ACTIVITIES"}
             </h2>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <p className="text-sm text-slate-600 leading-relaxed font-semibold">
+              {lang === "vi" 
+                ? "Khoa Toán - Tin học luôn dẫn đầu trong các nghiên cứu lý thuyết căn bản lẫn các bài toán ứng dụng thực tiễn, chuyển giao giải pháp cho các tập đoàn lớn toàn cầu và ghi dấu ấn sâu đậm trên bản đồ học thuật quốc tế."
+                : "The Faculty of Mathematics & Computer Science continually leads in deep theoretical work and applied industrial technologies, publishing globally and transferring insights to major tech enterprises."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Left intro text (Col 4) */}
-            <div className="lg:col-span-4 space-y-6 text-left">
-              <p className="text-sm text-slate-600 leading-relaxed font-semibold">
-                {lang === "vi" 
-                  ? "Khoa Toán - Tin học luôn dẫn đầu trong các nghiên cứu lý thuyết căn bản lẫn các bài toán ứng dụng thực tiễn, chuyển giao giải pháp cho các tập đoàn lớn toàn cầu và ghi dấu ấn trên bản đồ học thuật quốc tế."
-                  : "The Faculty of Mathematics & Computer Science continually leads in deep theoretical work and applied industrial technologies, publishing globally and transferring insights to major tech enterprises."}
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button 
-                  onClick={() => showToast(lang === "vi" ? "Đang kết nối để hiển thị các Đề tài NCKH xuất sắc..." : "Connecting to show elite Scientific Projects...")}
-                  className="bg-[#003366] hover:bg-[#002244] text-white font-bold py-3 px-6 rounded-md shadow-md transition-all text-xs uppercase cursor-pointer"
-                >
-                  {lang === "vi" ? "Công Bố Khoa Học" : "Scientific Publications"}
-                </button>
+            {/* Card 1: AI Lab */}
+            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới AI & Machine Learning Lab..." : "Connecting to AI & Machine Learning Lab...")}>
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold font-mono">01</div>
+                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                  {lang === "vi" ? "AI & Machine Learning Lab" : "AI & Machine Learning Lab"}
+                </h4>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                  {lang === "vi" 
+                    ? "Tối ưu hóa thuật toán mạng nơ-ron sâu, mô hình học máy quy mô lớn, xử lý ngôn ngữ tự nhiên Tiếng Việt (LLM) và ứng dụng robotics hiện đại."
+                    : "Optimizing deep neural network algorithms, large-scale machine learning models, Vietnamese LLM engines, and modern robot vision."}
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
+                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-            {/* Right Stats Grid (Col 8) */}
-            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-              {/* Stat 1 */}
-              <div className="bg-white p-6 md:p-8 rounded-[20px] shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col justify-center">
-                <div className="text-4xl md:text-5xl font-black text-[#003366] font-display mb-2">40+</div>
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
-                  {lang === "vi" ? "Bài báo khoa học quốc tế / năm" : "International Papers / year"}
+            {/* Card 2: Quantum Crypto */}
+            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Trung tâm Mật mã học..." : "Connecting to Cryptography & Security center...")}>
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold font-mono">02</div>
+                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                  {lang === "vi" ? "Mật Mã Học & An Toàn Số" : "Cryptography & Digital Security"}
                 </h4>
-                <p className="text-xs text-slate-500 mt-2 font-medium">ISI/Scopus Q1, Q2 liên tục xuất bản</p>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                  {lang === "vi" 
+                    ? "Nghiên cứu mật mã sau lượng tử, chữ ký số bảo mật tuyệt đối, an toàn hạ tầng thông tin quốc gia và ứng dụng Blockchain chống giả mạo."
+                    : "Pioneering post-quantum cipher suites, secure electronic signatures, federal info-safety, and blockless anti-tampering designs."}
+                </p>
               </div>
-
-              {/* Stat 2 */}
-              <div className="bg-white p-6 md:p-8 rounded-[20px] shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col justify-center">
-                <div className="text-4xl md:text-5xl font-black text-sky-500 font-display mb-2">15+</div>
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
-                  {lang === "vi" ? "Nhóm nghiên cứu & Labs" : "Research Groups & Labs"}
-                </h4>
-                <p className="text-xs text-slate-500 mt-2 font-medium">Chuyên sâu từ lý thuyết đến chuyển giao AI</p>
-              </div>
-
-              {/* Stat 3 */}
-              <div className="bg-white p-6 md:p-8 rounded-[20px] shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col justify-center">
-                <div className="text-4xl md:text-5xl font-black text-amber-500 font-display mb-2">25+</div>
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
-                  {lang === "vi" ? "Hội nghị & Hội thảo" : "Conferences & Seminars"}
-                </h4>
-                <p className="text-xs text-slate-500 mt-2 font-medium">Hợp tác cùng chuyên gia học thuật toàn cầu</p>
-              </div>
-
-              {/* Stat 4 */}
-              <div className="bg-white p-6 md:p-8 rounded-[20px] shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col justify-center">
-                <div className="text-4xl md:text-5xl font-black text-emerald-600 font-display mb-2">12+</div>
-                <h4 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
-                  {lang === "vi" ? "Dự án cấp Quốc gia & Bộ" : "National & Ministry Projects"}
-                </h4>
-                <p className="text-xs text-slate-500 mt-2 font-medium">Đóng góp trọng tâm kinh tế số, xã hội</p>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
+                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
+            {/* Card 3: Math Modeling */}
+            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Lab Toán ứng dụng..." : "Connecting to Applied Mathematics Lab...")}>
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold font-mono">03</div>
+                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                  {lang === "vi" ? "Toán Ứng Dụng & Mô Hình Hóa" : "Applied Math & Modeling"}
+                </h4>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                  {lang === "vi" 
+                    ? "Phát triển công cụ phân tích mô phỏng dòng chảy, tối ưu hóa giao thông đô thị tự động, định phí bảo hiểm Actuary và phân tích rủi ro tài chính súc tích."
+                    : "Simulating multivariable flow dynamics, urban traffic grid optimization, professional actuaries, and financial quantitative models."}
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
+                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+            {/* Card 4: Global Publications */}
+            <div className="bg-white rounded-2xl border border-[#003366]/20 bg-linear-to-b from-white to-sky-50/20 p-6 shadow-3xs hover:border-[#003366] hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Mở danh mục công bố Scopus/ISI..." : "Opening Scopus/ISI publications database...")}>
+              <div className="space-y-4">
+                <div className="w-10 h-10 rounded-xl bg-[#003366]/10 text-[#003366] flex items-center justify-center font-bold font-mono">04</div>
+                <h4 className="text-base font-black text-slate-900 group-hover:text-[#003366] transition-colors">
+                  {lang === "vi" ? "Công Bố Quốc Tế Cao Cấp" : "Prestigious Global Papers"}
+                </h4>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                  {lang === "vi" 
+                    ? "Hàng chục công trình công bố chất lượng xuất sắc hàng năm trên các tạp chí quốc tế nhóm đầu như Acta Mathematica, Nature Machine Intelligence."
+                    : "Scores of premium journals published annually in standard tier-1 journals such as Acta Mathematica and Nature Machine Intelligence."}
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-[#003366]">
+                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
+                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+
+          </div>
+
+          <div className="text-center mt-12">
+            <button 
+              onClick={() => showToast(lang === "vi" ? "Đang kết nối để hiển thị Lưu trữ Nghiên cứu khoa học..." : "Opening Scientific Research Archive Database...")}
+              className="inline-flex items-center gap-2 bg-[#003366] text-[#e2b13c] hover:bg-[#002244] font-black text-xs py-3.5 px-8 rounded-lg shadow-md transition-all cursor-pointer uppercase"
+            >
+              <span>{lang === "vi" ? "Xem thêm thông số & công trình" : "Venture research archive"}</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
       </section>
@@ -1371,7 +1392,7 @@ export default function App() {
         </div>
 
         {/* Scrolling lane element */}
-        <div className="relative w-full flex items-center bg-transparent py-2">
+        <div className="relative w-full flex items-center bg-transparent py-4">
           <div className="flex w-[200%] gap-16 items-center animate-marquee select-none whitespace-nowrap font-sans">
             
             {/* Set 1 */}
@@ -1379,76 +1400,76 @@ export default function App() {
               {/* VIASM */}
               <div 
                 onClick={() => showToast(lang === "vi" ? "Đang kết nối Viện Nghiên cứu Cao cấp về Toán (VIASM)..." : "Connecting to Vietnam Institute for Advanced Study in Mathematics (VIASM)...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer group grayscale hover:grayscale-0"
+                className="flex items-center gap-3.5 hover:opacity-85 transition-opacity cursor-pointer group"
               >
-                <div className="w-8 h-8 rounded bg-sky-800 flex items-center justify-center text-white font-extrabold text-sm tracking-tight group-hover:bg-sky-600">∑</div>
-                <span className="text-slate-800 text-xl font-black tracking-tight font-display">VIASM</span>
+                <div className="w-12 h-12 rounded-lg bg-[#003366] flex items-center justify-center text-white font-black text-xl tracking-tight shadow-sm">∑</div>
+                <span className="text-[#003366] text-2xl md:text-3xl font-black tracking-tight font-display">VIASM</span>
               </div>
 
               {/* Google */}
               <div 
                 onClick={() => showToast("Connecting to Google research program...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-2xl font-black tracking-tight font-display text-blue-600">G<span className="text-red-500">o</span><span className="text-amber-500">o</span>g<span className="text-green-500">l</span>e</span>
+                <span className="text-3xl md:text-4.5xl font-black tracking-tight font-display text-[#4285F4]">G<span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span>g<span className="text-[#34A853]">l</span>e</span>
               </div>
 
               {/* Microsoft */}
               <div 
                 onClick={() => showToast("Connecting to Microsoft collaboration portfolio...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
                 <div className="grid grid-cols-2 gap-0.5 shrink-0 mt-1">
-                  <span className="w-3.5 h-3.5 bg-red-500"></span>
-                  <span className="w-3.5 h-3.5 bg-green-500"></span>
-                  <span className="w-3.5 h-3.5 bg-blue-500"></span>
-                  <span className="w-3.5 h-3.5 bg-amber-400"></span>
+                  <span className="w-4 h-4 bg-[#F25022]"></span>
+                  <span className="w-4 h-4 bg-[#7FBA00]"></span>
+                  <span className="w-4 h-4 bg-[#00A4EF]"></span>
+                  <span className="w-4 h-4 bg-[#FFB900]"></span>
                 </div>
-                <span className="text-slate-800 text-2xl font-black font-display tracking-tight">Microsoft</span>
+                <span className="text-[#737373] text-3xl md:text-4.5xl font-black font-display tracking-tight">Microsoft</span>
               </div>
 
               {/* FPT */}
               <div 
                 onClick={() => showToast(lang === "vi" ? "Kết nối chương trình tài trợ & thực tập FPT..." : "Connecting to FPT internship gateway...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <div className="flex gap-1 font-black text-white text-sm uppercase tracking-tighter mt-1">
-                  <span className="bg-orange-500 text-white px-2 rounded-sm py-0.5">F</span>
-                  <span className="bg-sky-600 text-white px-2 rounded-sm py-0.5">P</span>
-                  <span className="bg-emerald-500 text-white px-2 rounded-sm py-0.5">T</span>
+                <div className="flex gap-1.5 font-black text-white text-base md:text-lg uppercase tracking-tighter mt-1">
+                  <span className="bg-[#f37021] text-white px-2.5 rounded-md py-1 shadow-2xs">F</span>
+                  <span className="bg-[#009245] text-white px-2.5 rounded-md py-1 shadow-2xs">P</span>
+                  <span className="bg-[#0072bc] text-white px-2.5 rounded-md py-1 shadow-2xs">T</span>
                 </div>
               </div>
 
               {/* VNG */}
               <div 
                 onClick={() => showToast("Connecting to VNG talent camp...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-slate-800 text-2xl font-black tracking-widest uppercase font-display hover:text-orange-500 transition-colors">VNG</span>
+                <span className="text-[#f37021] text-3xl md:text-4.5xl font-black tracking-widest uppercase font-display">VNG</span>
               </div>
 
               {/* MoMo */}
               <div 
                 onClick={() => showToast("Connecting to MoMo Fintech analytics lab...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-[#a50064] text-3xl font-black tracking-tight lowercase">m<span className="text-[#d80879] text-2xl">o</span>m<span className="text-[#d80879] text-2xl">o</span></span>
+                <span className="text-[#a50064] text-4xl md:text-5xl font-black tracking-tight lowercase">m<span className="text-[#d80879] text-3.5xl">o</span>m<span className="text-[#d80879] text-3.5xl">o</span></span>
               </div>
 
               {/* Grab */}
               <div 
                 onClick={() => showToast("Connecting to Grab urban transport research hub...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-emerald-600 text-3xl font-black tracking-normal lowercase font-sans">grab</span>
+                <span className="text-[#00B14F] text-4xl md:text-5xl font-black tracking-normal lowercase font-sans">grab</span>
               </div>
 
               {/* TMA */}
               <div 
                 onClick={() => showToast("Connecting to TMA engineering network...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-sky-800 text-2xl font-black tracking-wider font-display shrink-0">TMA</span>
+                <span className="text-[#005792] text-3xl md:text-4.5xl font-black tracking-wider font-display shrink-0">TMA</span>
               </div>
             </div>
 
@@ -1457,76 +1478,76 @@ export default function App() {
               {/* VIASM */}
               <div 
                 onClick={() => showToast(lang === "vi" ? "Đang kết nối Viện Nghiên cứu Cao cấp về Toán (VIASM)..." : "Connecting to Vietnam Institute for Advanced Study in Mathematics (VIASM)...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer group grayscale hover:grayscale-0"
+                className="flex items-center gap-3.5 hover:opacity-85 transition-opacity cursor-pointer group"
               >
-                <div className="w-8 h-8 rounded bg-sky-800 flex items-center justify-center text-white font-extrabold text-sm tracking-tight group-hover:bg-sky-600">∑</div>
-                <span className="text-slate-800 text-xl font-black tracking-tight font-display">VIASM</span>
+                <div className="w-12 h-12 rounded-lg bg-[#003366] flex items-center justify-center text-white font-black text-xl tracking-tight shadow-sm">∑</div>
+                <span className="text-[#003366] text-2xl md:text-3xl font-black tracking-tight font-display">VIASM</span>
               </div>
 
               {/* Google */}
               <div 
                 onClick={() => showToast("Connecting to Google research program...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-2xl font-black tracking-tight font-display text-blue-600">G<span className="text-red-500">o</span><span className="text-amber-500">o</span>g<span className="text-green-500">l</span>e</span>
+                <span className="text-3xl md:text-4.5xl font-black tracking-tight font-display text-[#4285F4]">G<span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span>g<span className="text-[#34A853]">l</span>e</span>
               </div>
 
               {/* Microsoft */}
               <div 
                 onClick={() => showToast("Connecting to Microsoft collaboration portfolio...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
                 <div className="grid grid-cols-2 gap-0.5 shrink-0 mt-1">
-                  <span className="w-3.5 h-3.5 bg-red-500"></span>
-                  <span className="w-3.5 h-3.5 bg-green-500"></span>
-                  <span className="w-3.5 h-3.5 bg-blue-500"></span>
-                  <span className="w-3.5 h-3.5 bg-amber-400"></span>
+                  <span className="w-4 h-4 bg-[#F25022]"></span>
+                  <span className="w-4 h-4 bg-[#7FBA00]"></span>
+                  <span className="w-4 h-4 bg-[#00A4EF]"></span>
+                  <span className="w-4 h-4 bg-[#FFB900]"></span>
                 </div>
-                <span className="text-slate-800 text-2xl font-black font-display tracking-tight">Microsoft</span>
+                <span className="text-[#737373] text-3xl md:text-4.5xl font-black font-display tracking-tight">Microsoft</span>
               </div>
 
               {/* FPT */}
               <div 
                 onClick={() => showToast(lang === "vi" ? "Kết nối chương trình tài trợ & thực tập FPT..." : "Connecting to FPT internship gateway...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <div className="flex gap-1 font-black text-white text-sm uppercase tracking-tighter mt-1">
-                  <span className="bg-orange-500 text-white px-2 rounded-sm py-0.5">F</span>
-                  <span className="bg-sky-600 text-white px-2 rounded-sm py-0.5">P</span>
-                  <span className="bg-emerald-500 text-white px-2 rounded-sm py-0.5">T</span>
+                <div className="flex gap-1.5 font-black text-white text-base md:text-lg uppercase tracking-tighter mt-1">
+                  <span className="bg-[#f37021] text-white px-2.5 rounded-md py-1 shadow-2xs">F</span>
+                  <span className="bg-[#009245] text-white px-2.5 rounded-md py-1 shadow-2xs">P</span>
+                  <span className="bg-[#0072bc] text-white px-2.5 rounded-md py-1 shadow-2xs">T</span>
                 </div>
               </div>
 
               {/* VNG */}
               <div 
                 onClick={() => showToast("Connecting to VNG talent camp...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-slate-800 text-2xl font-black tracking-widest uppercase font-display hover:text-orange-500 transition-colors">VNG</span>
+                <span className="text-[#f37021] text-3xl md:text-4.5xl font-black tracking-widest uppercase font-display">VNG</span>
               </div>
 
               {/* MoMo */}
               <div 
                 onClick={() => showToast("Connecting to MoMo Fintech analytics lab...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-[#a50064] text-3xl font-black tracking-tight lowercase">m<span className="text-[#d80879] text-2xl">o</span>m<span className="text-[#d80879] text-2xl">o</span></span>
+                <span className="text-[#a50064] text-4xl md:text-5xl font-black tracking-tight lowercase">m<span className="text-[#d80879] text-3.5xl">o</span>m<span className="text-[#d80879] text-3.5xl">o</span></span>
               </div>
 
               {/* Grab */}
               <div 
                 onClick={() => showToast("Connecting to Grab urban transport research hub...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-emerald-600 text-3xl font-black tracking-normal lowercase font-sans">grab</span>
+                <span className="text-[#00B14F] text-4xl md:text-5xl font-black tracking-normal lowercase font-sans">grab</span>
               </div>
 
               {/* TMA */}
               <div 
                 onClick={() => showToast("Connecting to TMA engineering network...")}
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity cursor-pointer grayscale hover:grayscale-0"
+                className="flex items-center gap-3 hover:opacity-85 transition-opacity cursor-pointer"
               >
-                <span className="text-sky-800 text-2xl font-black tracking-wider font-display shrink-0">TMA</span>
+                <span className="text-[#005792] text-3xl md:text-4.5xl font-black tracking-wider font-display shrink-0">TMA</span>
               </div>
             </div>
 
