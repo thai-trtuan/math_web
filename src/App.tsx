@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, FormEvent } from "react";
+import React, { useState, useEffect, useRef, FormEvent } from "react";
 import { 
   Menu, 
   X, 
@@ -52,6 +52,18 @@ import {
   StudyProgram
 } from "./data";
 
+
+const ZaloIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.2 5.093c-1.39-1.92-4.14-3.093-7.2-3.093-6.07 0-11 4.477-11 10 0 2.924 1.39 5.568 3.593 7.37L4.7 21.64c-.2.246.06.602.35.485l3.24-1.284a12.016 12.016 12.016 0 0 0 5.71 1.159c6.07 0 11-4.477 11-10 0-2.825-1.12-5.405-3.8-6.907z" />
+  </svg>
+);
+
+const FacebookRealIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+  </svg>
+);
 export default function App() {
   // Localization state: "vi" or "en"
   const [lang, setLang] = useState<"vi" | "en">("vi");
@@ -123,47 +135,21 @@ export default function App() {
     setChatMessages([{ sender: "bot", text: welcomeMsg }]);
   }, [lang]);
 
-  // SDG Square Badge render helper - styled strictly according to official UN SDG logos (https://vietnam.un.org/vi/sdgs)
+    // SDG Badge render helper - using standard UN SDG imagery
   const renderSdgSquare = (sdg: string) => {
-    if (sdg === "4") {
-      const titleVi = <>GIÁO DỤC<br/>CÓ CHẤT LƯỢNG</>;
-      const titleEn = <>QUALITY<br/>EDUCATION</>;
-      return (
-        <div key={sdg} className="w-[42px] h-[42px] bg-[#C5192D] text-white p-1 rounded-[1.5px] flex flex-col justify-between shrink-0 font-sans shadow-5xs transition-all hover:scale-105 select-none" title="SDG 4: Giáo dục có chất lượng | Quality Education">
-          <span className="text-[13px] font-black leading-none text-left tracking-tighter">4</span>
-          <span className="text-[4px] font-black leading-[4.5px] tracking-tighter text-left uppercase whitespace-nowrap block">
-            {lang === "vi" ? titleVi : titleEn}
-          </span>
-        </div>
-      );
-    }
-    if (sdg === "9") {
-      const titleVi = <>CÔNG NGHIỆP, SÁNG TẠO<br/>& PT HẠ TẦNG</>;
-      const titleEn = <>INDUSTRY, INNOVATION<br/>& INFRASTRUCTURE</>;
-      return (
-        <div key={sdg} className="w-[42px] h-[42px] bg-[#F36D25] text-white p-1 rounded-[1.5px] flex flex-col justify-between shrink-0 font-sans shadow-5xs transition-all hover:scale-105 select-none" title="SDG 9: Công nghiệp, Sáng tạo và Phát triển hạ tầng | Industry, Innovation & Infrastructure">
-          <span className="text-[13px] font-black leading-none text-left tracking-tighter">9</span>
-          <span className="text-[3.6px] font-black leading-[4px] tracking-tighter text-left uppercase whitespace-nowrap block font-sans">
-            {lang === "vi" ? titleVi : titleEn}
-          </span>
-        </div>
-      );
-    }
-    if (sdg === "17") {
-      const titleVi = <>QUAN HỆ ĐỐI TÁC<br/>VÌ CÁC MỤC TIÊU</>;
-      const titleEn = <>PARTNERSHIPS<br/>FOR THE GOALS</>;
-      return (
-        <div key={sdg} className="w-[42px] h-[42px] bg-[#19486A] text-white p-1 rounded-[1.5px] flex flex-col justify-between shrink-0 font-sans shadow-5xs transition-all hover:scale-105 select-none" title="SDG 17: Quan hệ đối tác vì các mục tiêu | Partnerships for the Goals">
-          <span className="text-[13px] font-black leading-none text-left tracking-tighter">17</span>
-          <span className="text-[4px] font-black leading-[4.5px] tracking-tighter text-left uppercase whitespace-nowrap block">
-            {lang === "vi" ? titleVi : titleEn}
-          </span>
-        </div>
-      );
-    }
-    return null;
+    const num = parseInt(sdg, 10);
+    if (!num || num < 1 || num > 17) return null;
+    const url = `https://vietnam.un.org/profiles/undg_country/themes/custom/undg/images/SDGs/${lang === "vi" ? "vi" : "en"}/SDG-${num}.svg`;
+    return (
+      <img 
+        key={sdg} 
+        src={url} 
+        alt={`SDG ${sdg}`}
+        className="w-8 h-8 rounded-sm shadow-sm transition-all hover:scale-105 select-none object-cover" 
+        title={`Sustainable Development Goal ${sdg}`}
+      />
+    );
   };
-
   // Mini SDG Square Badge render helper
   const renderMiniSdgSquare = (sdg: string) => renderSdgSquare(sdg);
 
@@ -283,6 +269,10 @@ export default function App() {
       
       // Navigation Menu
       navIntro: { vi: "Giới thiệu", en: "About us" },
+
+      secNewsTitle: { vi: "Tin Tức - Sự Kiện Nổi Bật", en: "Latest News & Events" },
+      secProgramsTitle: { vi: "CHƯƠNG TRÌNH ĐÀO TẠO ĐẠI HỌC", en: "UNDERGRADUATE PROGRAMS" },
+
       navEdu: { vi: "Đào tạo", en: "Academics" },
       navResearch: { vi: "Nghiên cứu", en: "Research" },
       navStudent: { vi: "Sinh viên", en: "Student life" },
@@ -309,7 +299,7 @@ export default function App() {
 
       // Contact form
       addrTitle: { vi: "ĐỊA CHỈ LIÊN HỆ", en: "ADDRESS" },
-      addrDetail: { vi: "Phòng F08-09, Tòa nhà F, 227 Nguyễn Văn Cừ, Phường Chợ Quán, Thành phố Hồ Chí Minh", en: "Room F08-09, Building F, 227 Nguyen Van Cu Str, Cho Quan Ward, Ho Chi Minh City" },
+      addrDetail: { vi: "", en: "" },
       officeHour: { vi: "Giờ làm việc: Thứ Hai - Thứ Sáu, 08:00 - 11:30 & 13:30 - 16:30", en: "Working hours: Mon - Fri, 08:00 - 11:30 & 13:30 - 16:30" },
       formTitle: { vi: "Gửi thư đóng góp / Liên hệ công tác", en: "Get In Touch / Academic Inquiries" },
       formName: { vi: "Họ và tên của bạn", en: "Your full name" },
@@ -419,7 +409,7 @@ export default function App() {
         } else if (q.includes("địa chỉ") || q.includes("ở đâu")) {
           reply = "Văn phòng Khoa Toán - Tin học nằm tại dãy nhà C, Số 227 Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM. Bạn có thể ghé thăm để được tư vấn trực tiếp!";
         } else {
-          reply = "Khoa Toán - Tin học luôn sẵn lòng hỗ trợ bạn! Để nhận tư vấn chi tiết hơn theo nguyện vọng, bạn có thể gửi thông tin liên hệ qua Form bên dưới hoặc nhắn tin cho Fanpage của Khoa nhé.";
+          reply = "Khoa Toán - Tin học luôn sẵn lòng hỗ trợ bạn! Để nhận tư vấn chi tiết hơn theo nguyện vọng, bạn có thể gửi thông tin liên hệ qua Form bên dưới hoặc nhắn tin Zalo OA của Khoa nhé.";
         }
       } else {
         if (q.includes("score") || q.includes("admission") || q.includes("grade")) {
@@ -873,11 +863,11 @@ export default function App() {
             {/* Content & Stats right (Col 7) */}
             <div className="lg:col-span-7 space-y-8 text-left">
               <div className="space-y-2">
-                <h3 className="text-sm md:text-base font-bold text-sky-200 uppercase tracking-widest opacity-80">
-                  {lang === "vi" ? "CHÀO MỪNG ĐẾN VỚI.." : "WELCOME TO.."}
+                <h3 className="text-sm md:text-base font-bold text-sky-600 uppercase tracking-widest opacity-80">
+                  {lang === "vi" ? "CHÀO MỪNG ĐẾN VỚI..." : "WELCOME TO..."}
                 </h3>
                 <h2 className="text-3xl md:text-4xl font-black text-sky-600 font-display">
-                  {lang === "vi" ? "Khoa Toán - Tin học" : "Faculty of Math & CS"}
+                  {lang === "vi" ? "Khoa Toán - Tin học" : "Faculty of Mathematics & Computer Science"}
                 </h2>
               </div>
               
@@ -917,6 +907,78 @@ export default function App() {
             </div>
 
           </div>
+        
+          {/* Why choose section from Flyer */}
+          <div className="mt-16 border-t border-slate-100 pt-10">
+            <div className="text-center mb-8">
+               <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase">
+                 {lang === "vi" ? "VÌ SAO CHỌN KHOA TOÁN - TIN HỌC?" : "WHY CHOOSE MATH & CS?"}
+               </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              
+              <div className="bg-white rounded-2xl border border-sky-100 p-6 flex flex-col shadow-xs">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-900 leading-snug font-sans uppercase">
+                    {lang === "vi" ? "TRUYỀN THỐNG & VỊ THẾ" : "TRADITION & BRAND"}
+                  </h4>
+                </div>
+                <ul className="text-xs text-slate-600 font-medium leading-relaxed space-y-1.5 flex-1">
+                  <li className="flex gap-2 items-start"><span className="text-orange-500">✔</span> {lang === "vi" ? "Gần 70 năm đào tạo và nghiên cứu Toán học (30 năm định hướng ứng dụng)." : "Nearly 70 years of training (30 years applied orientation)."}</li>
+                  <li className="flex gap-2 items-start"><span className="text-orange-500">✔</span> {lang === "vi" ? "Trung tâm đào tạo và nghiên cứu Toán học trọng điểm tại khu vực phía Nam." : "Key center for Mathematics in the Southern region."}</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl border border-sky-100 p-6 flex flex-col shadow-xs">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-900 leading-snug font-sans uppercase">
+                    {lang === "vi" ? "ĐỘI NGŨ & ĐÀO TẠO" : "STAFF & TRAINING"}
+                  </h4>
+                </div>
+                <ul className="text-xs text-slate-600 font-medium leading-relaxed space-y-1.5 flex-1">
+                  <li className="flex gap-2 items-start"><span className="text-sky-500">✔</span> {lang === "vi" ? "Đội ngũ giảng viên uy tín, tận tâm, có trình độ chuyên môn cao." : "Highly qualified and dedicated teaching staff."}</li>
+                  <li className="flex gap-2 items-start"><span className="text-sky-500">✔</span> {lang === "vi" ? "Đơn vị duy nhất trong ĐHQG-HCM đào tạo Toán - Tin học từ cử nhân đến tiến sĩ." : "The only unit in VNU-HCM training from bachelor to doctoral level."}</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl border border-sky-100 p-6 flex flex-col shadow-xs">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-900 leading-snug font-sans uppercase">
+                    {lang === "vi" ? "CHẤT LƯỢNG & HỘI NHẬP" : "QUALITY & INTEGRATION"}
+                  </h4>
+                </div>
+                <ul className="text-xs text-slate-600 font-medium leading-relaxed space-y-1.5 flex-1">
+                  <li className="flex gap-2 items-start"><span className="text-emerald-500">✔</span> {lang === "vi" ? "Bốn chương trình đào tạo đã được kiểm định chất lượng quốc tế ASIIN." : "Four programs internationally accredited by ASIIN."}</li>
+                  <li className="flex gap-2 items-start"><span className="text-emerald-500">✔</span> {lang === "vi" ? "Hợp tác sâu rộng với các trường đại học, viện nghiên cứu, doanh nghiệp." : "Extensive cooperation with global institutes and enterprises."}</li>
+                </ul>
+              </div>
+
+              <div className="bg-white rounded-2xl border border-sky-100 p-6 flex flex-col shadow-xs bg-slate-900 text-white">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>
+                  </div>
+                  <h4 className="text-sm font-bold text-white leading-snug font-sans uppercase">
+                    {lang === "vi" ? "CỘNG ĐỒNG & CƠ HỘI" : "COMMUNITY & CHANCES"}
+                  </h4>
+                </div>
+                <ul className="text-xs text-slate-300 font-medium leading-relaxed space-y-1.5 flex-1">
+                  <li className="flex gap-2 items-start"><span className="text-sky-400">✔</span> {lang === "vi" ? "Nhiều cựu sinh viên thành công trong lĩnh vực Toán học và Tin học." : "Successful alumni across Math & CS."}</li>
+                  <li className="flex gap-2 items-start"><span className="text-sky-400">✔</span> {lang === "vi" ? "Cơ hội nghề nghiệp rộng mở; nền tảng vững chắc để học sau đại học." : "Career opportunities; solid foundation for post-graduate studies."}</li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
         </div>
       </section>
 
@@ -928,8 +990,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full">
           
           {/* Header of News & Events section */}
-          <div className="text-center pb-4 mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase border-b border-slate-200/50 inline-block pb-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase ">
               {t("secNewsTitle")}
             </h2>
           </div>
@@ -962,7 +1024,8 @@ export default function App() {
                       {lang === "vi" ? filteredNews[0].title : filteredNews[0].titleEn}
                     </h5>
                     
-                    <div className="text-sm text-slate-500 font-sans font-medium mt-1.5 block">
+                    <div className="flex items-center gap-1.5 text-sm text-slate-500 font-sans font-medium mt-1.5">
+                      <Calendar className="w-3.5 h-3.5 shrink-0" />
                       {filteredNews[0].date}
                     </div>
 
@@ -1003,7 +1066,8 @@ export default function App() {
                             {lang === "vi" ? item.title : item.titleEn}
                           </h6>
                           
-                          <span className="text-xs text-slate-500 font-sans block mt-1.5">
+                          <span className="flex items-center gap-1.5 text-xs text-slate-500 font-sans mt-1.5">
+                            <Calendar className="w-3.5 h-3.5 shrink-0" />
                             {item.date}
                           </span>
                         </div>
@@ -1038,8 +1102,8 @@ export default function App() {
           {/* Section 5B: Student Announcements Slider (As requested - Moved below as a horizontal slider) */}
           <div id="student-alerts" className="w-full space-y-4">
             {/* Announcements Header block */}
-            <div className="flex flex-col items-center justify-center pb-4 w-full text-center relative">
-              <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase border-b border-slate-200/50 inline-block pb-4">
+            <div className="flex flex-col items-center justify-center mb-8 w-full text-center relative">
+              <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase ">
                 {lang === "vi" ? "THÔNG BÁO CHO NGƯỜI HỌC" : "ACADEMIC ANNOUNCEMENTS"}
               </h2>
               {/* Navigation buttons */}
@@ -1090,8 +1154,8 @@ export default function App() {
                       <div className="space-y-3">
                         <div className="flex items-center justify-between gap-2 border-b border-slate-100 pb-2">
                           <span className="text-xs md:text-sm text-slate-500 font-sans font-medium flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                            {notif.date} {notif.month} 2026
+                            <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            {notif.date}
                           </span>
                           
                           {notif.priority && (notif.priority === "Khẩn" || notif.priority === "Quan trọng") && (
@@ -1148,8 +1212,8 @@ export default function App() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] relative z-10">
-          <div className="text-center mb-10 pb-6 border-b border-white/25">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-sans text-white uppercase relative">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight font-sans text-white uppercase">
               {t("secProgramsTitle")}
             </h2>
           </div>
@@ -1276,110 +1340,96 @@ export default function App() {
       {/* ========================================== */}
       {/* 6C. OUTSTANDING RESEARCH ACTIVITIES        */}
       {/* ========================================== */}
-      <section id="student-activities" className="bg-slate-50 py-16 border-t border-slate-200/40">
+      <section id="research-activities" className="bg-slate-50 py-16">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full">
-          <div className="text-center mb-10 pb-6 border-b border-slate-200/50">
+          <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase">
-              {lang === "vi" ? "MỘT SỐ HOẠT ĐỘNG NGHIÊN CỨU NỔI BẬT" : "OUTSTANDING RESEARCH ACTIVITIES"}
+              {lang === "vi" ? "HOẠT ĐỘNG NGHIÊN CỨU NỔI BẬT" : "OUTSTANDING RESEARCH ACTIVITIES"}
             </h2>
           </div>
           
-          <div className="text-center max-w-3xl mx-auto mb-10">
-            <p className="text-sm text-slate-600 leading-relaxed font-semibold">
-              {lang === "vi" 
-                ? "Khoa Toán - Tin học luôn dẫn đầu trong các nghiên cứu lý thuyết căn bản lẫn các bài toán ứng dụng thực tiễn, chuyển giao giải pháp cho các tập đoàn lớn toàn cầu và ghi dấu ấn sâu đậm trên bản đồ học thuật quốc tế."
-                : "The Faculty of Mathematics & Computer Science continually leads in deep theoretical work and applied industrial technologies, publishing globally and transferring insights to major tech enterprises."}
-            </p>
-          </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            {/* Card 1: AI Lab */}
-            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới AI & Machine Learning Lab..." : "Connecting to AI & Machine Learning Lab...")}>
+            <div className="bg-white rounded-2xl border border-slate-200/60 p-6 hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết danh mục xếp hạng Web of Science..." : "Opening WoS publications...")}>
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold text-lg font-mono">01</div>
-                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
-                  {lang === "vi" ? "AI & Machine Learning Lab" : "AI & Machine Learning Lab"}
+                <div className="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold text-2xl font-mono group-hover:scale-110 transition-transform">
+                  <div className="text-orange-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-book-open-check"><path d="M8 3H2v15h7c1.7 0 3 1.3 3 3V7c0-2.2-1.8-4-4-4Z"/><path d="m16 12 2 2 4-4"/><path d="M22 6V3h-6c-2.2 0-4 1.8-4 4v14c0-1.7 1.3-3 3-3h7v-2.3"/></svg></div>
+                </div>
+                <h4 className="text-[17px] font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug font-sans uppercase">
+                  {lang === "vi" ? "CÔNG BỐ QUỐC TẾ Q1/Q2" : "Q1/Q2 PUBLICATIONS"}
                 </h4>
-                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
+                <p className="text-sm text-slate-600 font-medium leading-relaxed mt-2 line-clamp-4">
                   {lang === "vi" 
-                    ? "Tối ưu hóa thuật toán mạng nơ-ron sâu, mô hình học máy quy mô lớn, xử lý ngôn ngữ tự nhiên Tiếng Việt (LLM) và ứng dụng robotics hiện đại."
-                    : "Optimizing deep neural network algorithms, large-scale machine learning models, Vietnamese LLM engines, and modern robot vision."}
+                    ? "Đội ngũ giảng viên, nghiên cứu viên công bố hàng trăm bài báo khoa học chất lượng cao trên các tạp chí quốc tế chuẩn SCIE/SCOPUS hàng năm."
+                    : "Hundreds of high-quality papers published annually in prestigious SCIE/SCOPUS indexed international journals by our researchers."}
                 </p>
               </div>
-              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
-                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
-                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+              <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between text-xs font-bold text-sky-600 uppercase">
+                <span>{lang === "vi" ? "Xem thống kê" : "View stats"}</span>
+                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-            {/* Card 2: Quantum Crypto */}
-            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Trung tâm Mật mã học..." : "Connecting to Cryptography & Security center...")}>
+            <div className="bg-white rounded-2xl border border-slate-200/60 p-6 hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Mở danh sách đề tài NAFOSTED..." : "Opening NAFOSTED projects...")}>
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-lg font-mono">02</div>
-                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
-                  {lang === "vi" ? "Mật Mã Học & An Toàn Số" : "Cryptography & Digital Security"}
+                <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-2xl font-mono group-hover:scale-110 transition-transform">
+                  <div className="text-sky-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-flask-conical"><path d="M10 2v7.31L2 20.5V22h20v-1.5L14 9.31V2"/><path d="M8.5 2h7"/><path d="M14 9.31 20 20.5"/><path d="M4 20.5 10 9.31"/></svg></div>
+                </div>
+                <h4 className="text-[17px] font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug font-sans uppercase">
+                  {lang === "vi" ? "ĐỀ TÀI TRỌNG ĐIỂM" : "KEY RESEARCH GRANTS"}
                 </h4>
-                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
+                <p className="text-sm text-slate-600 font-medium leading-relaxed mt-2 line-clamp-4">
                   {lang === "vi" 
-                    ? "Nghiên cứu mật mã sau lượng tử, chữ ký số bảo mật tuyệt đối, an toàn hạ tầng thông tin quốc gia và ứng dụng Blockchain chống giả mạo."
-                    : "Pioneering post-quantum cipher suites, secure electronic signatures, federal info-safety, and blockless anti-tampering designs."}
+                    ? "Chủ trì nhiều đề tài nghiên cứu cấp Quốc gia (NAFOSTED), cấp Bộ, cấp ĐHQG-HCM, mang lại giá trị khoa học cốt lõi vững chắc."
+                    : "Leading numerous National (NAFOSTED), Ministerial, and VNU-HCM research grants contributing to solid core scientific values."}
                 </p>
               </div>
-              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
-                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
-                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+              <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between text-xs font-bold text-sky-600 uppercase">
+                <span>{lang === "vi" ? "Các đề tài" : "Grants list"}</span>
+                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-            {/* Card 3: Math Modeling */}
-            <div className="bg-white rounded-2xl border border-slate-200/50 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết tới Lab Toán ứng dụng..." : "Connecting to Applied Mathematics Lab...")}>
+            <div className="bg-white rounded-2xl border border-slate-200/60 p-6 hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Đang liên kết ứng dụng và chuyển giao AI..." : "Connecting to Applied AI & Tech Transfer...")}>
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg font-mono">03</div>
-                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
-                  {lang === "vi" ? "Toán Ứng Dụng & Mô Hình Hóa" : "Applied Math & Modeling"}
+                <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-2xl font-mono group-hover:scale-110 transition-transform">
+                  <div className="text-emerald-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-workflow"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></div>
+                </div>
+                <h4 className="text-[17px] font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug font-sans uppercase">
+                  {lang === "vi" ? "ỨNG DỤNG & CHUYỂN GIAO" : "APPLIED R&D & TRANSFER"}
                 </h4>
-                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
+                <p className="text-sm text-slate-600 font-medium leading-relaxed mt-2 line-clamp-4">
                   {lang === "vi" 
-                    ? "Phát triển công cụ phân tích mô phỏng dòng chảy, tối ưu hóa giao thông đô thị tự động, định phí bảo hiểm Actuary và phân tích rủi ro tài chính súc tích."
-                    : "Simulating multivariable flow dynamics, urban traffic grid optimization, professional actuaries, and financial quantitative models."}
+                    ? "Hợp tác chặt chẽ cùng doanh nghiệp công nghệ, ngân hàng phát triển các mô hình Trí tuệ nhân tạo, tối ưu hóa và mật mã."
+                    : "Working closely with tech firms and banks to develop state-of-the-art AI, optimization, and advanced cryptography systems."}
                 </p>
               </div>
-              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
-                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
-                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+              <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between text-xs font-bold text-sky-600 uppercase">
+                <span>{lang === "vi" ? "Mô hình ứng dụng" : "Applied Models"}</span>
+                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-            {/* Card 4: Global Publications */}
-            <div className="bg-white rounded-2xl border border-sky-600/20 bg-linear-to-b from-white to-sky-50/20 p-6 shadow-3xs hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Mở danh mục công bố Scopus/ISI..." : "Opening Scopus/ISI publications database...")}>
+            <div className="bg-white rounded-2xl border border-sky-600/20 bg-linear-to-b from-white to-sky-50/20 p-6 hover:border-sky-600 hover:shadow-md transition-all text-left flex flex-col justify-between group cursor-pointer" onClick={() => showToast(lang === "vi" ? "Xem mạng lưới hợp tác nghiên cứu..." : "Opening global network...")}>
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-sky-600/10 text-sky-600 flex items-center justify-center font-bold text-lg font-mono">04</div>
-                <h4 className="text-[15px] md:text-lg font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-2 font-sans mt-3">
-                  {lang === "vi" ? "Công Bố Quốc Tế Cao Cấp" : "Prestigious Global Papers"}
+                <div className="w-12 h-12 rounded-xl bg-sky-600 text-white flex items-center justify-center font-bold text-2xl font-mono group-hover:scale-110 transition-transform shadow-md">
+                  <div className="text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-earth"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/><path d="M7 3.34V5a3 3 0 0 0 3 3v0a2 2 0 0 1 2 2v0c0 1.1.9 2 2 2h3.17"/><path d="M11 21.95V18a2 2 0 0 0-2-2v0a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/><circle cx="12" cy="12" r="10"/></svg></div>
+                </div>
+                <h4 className="text-[17px] font-bold text-slate-900 group-hover:text-sky-600 transition-colors leading-snug font-sans uppercase">
+                  {lang === "vi" ? "MẠNG LƯỚI QUỐC TẾ" : "GLOBAL NETWORK"}
                 </h4>
-                <p className="text-sm text-slate-600 font-normal leading-relaxed mt-3 line-clamp-4">
+                <p className="text-sm text-slate-600 font-medium leading-relaxed mt-2 line-clamp-4">
                   {lang === "vi" 
-                    ? "Hàng chục công trình công bố chất lượng xuất sắc hàng năm trên các tạp chí quốc tế nhóm đầu như Acta Mathematica, Nature Machine Intelligence."
-                    : "Scores of premium journals published annually in standard tier-1 journals such as Acta Mathematica and Nature Machine Intelligence."}
+                    ? "Hàng loạt giáo sư, chuyên gia thỉnh giảng từ Pháp, Mỹ, Nhật Bản... đến làm việc, giảng dạy và trao đổi khoa học thường xuyên."
+                    : "Continuous academic exchange with top tier professors and researchers from France, USA, Japan, and other developed nations."}
                 </p>
               </div>
-              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-[13px] font-bold text-sky-600 group-hover:text-sky-800 transition-colors">
-                <span>{lang === "vi" ? "Xem chi tiết" : "Read more"}</span>
-                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+              <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between text-xs font-bold text-sky-600 uppercase">
+                <span>{lang === "vi" ? "Mạng lưới đối tác" : "Partners"}</span>
+                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
 
-          </div>
-
-          <div className="pt-2 text-center">
-            <button 
-              onClick={() => showToast(lang === "vi" ? "Đang kết nối để hiển thị Lưu trữ Nghiên cứu khoa học..." : "Opening Scientific Research Archive Database...")}
-              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 justify-center text-sky-600 hover:text-sky-700 font-bold text-xs py-2.5 px-8 rounded-lg border border-slate-200 hover:border-sky-600 transition-all cursor-pointer shadow-3xs"
-            >
-              <span>{lang === "vi" ? "Xem thêm" : "Read more"}</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </button>
           </div>
         </div>
       </section>
@@ -1398,9 +1448,9 @@ export default function App() {
           }
         `}} />
         
-        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full mb-10 pb-6 border-b border-slate-200/50">
-          <div className="flex flex-col text-center">
-            <h2 className="text-2xl md:text-3.5xl font-black text-slate-900 tracking-tight font-display uppercase">
+        <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full mb-8 ">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase">
               {lang === "vi" ? "ĐỐI TÁC CHIẾN LƯỢC & DOANH NGHIỆP" : "ACADEMIC & INDUSTRIAL PARTNERS"}
             </h2>
           </div>
@@ -1580,16 +1630,12 @@ export default function App() {
           {/* Column 1: Branding block (col-span-4) */}
           <div className="md:col-span-4 space-y-4">
             <h4 className="text-white text-2xl font-black font-display tracking-tight hover:text-sky-300 transition-colors">
-              toantin@hcmus
+              KHOA TOÁN - TIN HỌC
             </h4>
             <p className="text-xs text-sky-100 font-medium leading-relaxed opacity-90">
               {lang === "vi" 
-                ? "© 2026 Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM."
-                : "© 2026 Faculty of Mathematics & Computer Science, VNUHCM-University of Science."}
-              <br />
-              {lang === "vi"
-                ? "Đơn vị đào tạo, cung cấp nguồn nhân lực Toán học, Tin học ứng dụng và Trí tuệ nhân tạo hàng đầu miền Nam Việt Nam."
-                : "The leading academic institution providing human resources in Mathematics, Applied Informatics and AI in Southern Vietnam."}
+                ? "© 2026 Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM" 
+                : "© 2026 Faculty of Mathematics & Computer Science, VNUHCM-US"}
             </p>
             
             {/* Follow Us block */}
@@ -1599,24 +1645,12 @@ export default function App() {
               </span>
               <div className="flex items-center space-x-3.5">
                 {/* Facebook icon */}
-                <a href="https://www.facebook.com/toantin.tuvantuyensinh" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-sky-500 hover:text-white transition-all shadow-2xs">
-                  <Facebook className="w-4 h-4" />
-                </a>
-                {/* LinkedIn icon */}
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-sky-500 hover:text-white transition-all shadow-2xs">
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                {/* Youtube icon */}
-                <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-red-600 hover:text-white transition-all shadow-2xs">
-                  <Youtube className="w-4 h-4" />
-                </a>
-                {/* TikTok icon */}
-                <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-slate-800 hover:text-white transition-all shadow-2xs">
-                  <Video className="w-4 h-4" />
+                <a href="https://fb.com/khoatoantinhoc" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white text-[#1877F2] hover:bg-sky-100 flex items-center justify-center hover:opacity-80 transition-opacity shadow-sm">
+                  <FacebookRealIcon className="w-4 h-4" />
                 </a>
                 {/* Zalo icon */}
-                <a href="https://zalo.me" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-sky-700 flex items-center justify-center text-white hover:bg-blue-600 hover:text-white transition-all shadow-2xs">
-                  <MessageCircle className="w-4 h-4" />
+                <a href="https://zalo.me" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white text-[#0068FF] hover:bg-sky-100 flex items-center justify-center hover:opacity-80 transition-opacity shadow-sm">
+                  <ZaloIcon className="w-4.5 h-4.5" />
                 </a>
               </div>
             </div>
@@ -1632,18 +1666,26 @@ export default function App() {
               <li className="flex items-start gap-1.5 leading-relaxed">
                 <span className="text-white font-extrabold">•</span>
                 <span>
-                  {lang === "vi" 
-                    ? "Lầu 2, Tòa nhà C, 227 đường Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh"
-                    : "Floor 2, Building C, 227 Nguyen Van Cu Street, Ward 4, District 5, Ho Chi Minh City"}
+                  {lang === "vi" ? (
+                    <ul className="list-disc pl-4 space-y-1 mt-1">
+                      <li>Phòng F08-09, Tòa nhà F, 227 Nguyễn Văn Cừ, Phường Chợ Quán, Thành phố Hồ Chí Minh</li>
+                      <li>Phòng 8.5, Nhà điều hành, Khu đô thị Đại học Quốc gia, Phường Đông Hòa, Thành phố Hồ Chí Minh</li>
+                    </ul>
+                  ) : (
+                    <ul className="list-disc pl-4 space-y-1 mt-1">
+                      <li>Room F08-09, Building F, 227 Nguyen Van Cu Street, Cho Quan Ward, HCMC</li>
+                      <li>Room 8.5, Administration Building, VNU Urban Area, Dong Hoa Ward, HCMC</li>
+                    </ul>
+                  )}
                 </span>
               </li>
               <li className="flex items-start gap-1.5">
                 <span className="text-white font-extrabold">•</span>
-                <span>{lang === "vi" ? "SĐT" : "Phone"}: (028) 3835 0006 (EXT: 4000)</span>
+                <span>{lang === "vi" ? "SĐT" : "Phone"}: (028) 6288 4499 (EXT: 4300)</span>
               </li>
               <li className="flex items-start gap-1.5">
                 <span className="text-white font-extrabold">•</span>
-                <span>Email: <a href="mailto:toantin@hcmus.edu.vn" className="hover:text-white transition-all">toantin@hcmus.edu.vn</a></span>
+                <span>Email: <a href="mailto:math@hcmus.edu.vn" className="hover:text-white transition-all">math@hcmus.edu.vn</a></span>
               </li>
               <li className="flex items-start gap-1.5">
                 <span className="text-white font-extrabold">•</span>
@@ -1695,13 +1737,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] border-t border-sky-500/60 pt-5 text-center flex flex-col sm:flex-row justify-between items-center text-[10px] text-sky-200 font-medium gap-3 opacity-90">
           <p>
             {lang === "vi" 
-              ? "Trang thông tin chính thống của Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM."
-              : "The official portal of the Faculty of Mathematics & Computer Science, VNUHCM-US."}
-          </p>
-          <p>
-            {lang === "vi"
-              ? "Mã nguồn tuyển sinh được cấu trúc chuẩn hóa cho môi trường vận hành chất lượng cao."
-              : "Recruitment portal systematically engineered for high-availability environment."}
+              ? "© 2026 Khoa Toán - Tin học, Trường Đại học Khoa học tự nhiên, ĐHQG-HCM."
+              : "© 2026 Faculty of Mathematics & Computer Science, VNUHCM-University of Science."}
           </p>
         </div>
       </footer>
@@ -1711,15 +1748,15 @@ export default function App() {
       {/* ========================================== */}
       
             {/* Action floating buttons (FAB) */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-2 bg-white p-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100">
+                  <div className="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-2 bg-white p-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-100">
         
         {/* Hotline */}
         <a 
-          href="tel:02838350006"
-          className="bg-sky-600 text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all outline-none"
+          href="tel:02862884499"
+          className="bg-sky-600 text-white p-3 rounded-full hover:scale-[1.05] active:scale-95 transition-all outline-none"
           title="Hotline"
         >
-          <Phone className="w-5 h-5" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </a>
 
         {/* Zalo OA */}
@@ -1730,7 +1767,7 @@ export default function App() {
           className="bg-sky-600 text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all outline-none"
           title="Nhắn tin qua Zalo OA"
         >
-          <MessageCircle className="w-5 h-5" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-circle"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>
         </a>
 
         {/* Chat */}
@@ -1739,19 +1776,9 @@ export default function App() {
           className="bg-sky-600 text-white p-3 rounded-full hover:scale-105 active:scale-95 transition-all relative outline-none"
           title="Chat tư vấn AI"
         >
-          {chatOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-5 h-5" />}
-          
+          {chatOpen ? <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> : <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
           {/* Unread dot signal */}
           {!chatOpen && <span className="absolute top-0 right-0 w-3 h-3 rounded-full bg-red-500 border-2 border-sky-600 animate-pulse"></span>}
-        </button>
-
-        {/* Scroll To Top */}
-        <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-sky-600 p-3 rounded-full hover:scale-105 active:scale-95 transition-all mt-1 outline-none"
-          title="Lên đầu trang"
-        >
-          <ChevronUp className="w-5 h-5" />
         </button>
       </div>
 

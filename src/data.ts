@@ -18,8 +18,7 @@ export interface NotificationItem {
   title: string;
   titleEn: string;
   date: string;
-  month: string;
-  category: "undergrade" | "postgrade" | "scholarship";
+    category: "undergrade" | "postgrade" | "scholarship";
   pinned?: boolean;
   priority?: "Khẩn" | "Quan trọng" | "Bình thường" | string;
 }
@@ -138,7 +137,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     date: "11/06/2026",
     imageUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=600",
     readTime: "5 phút đọc",
-    sdgs: ["4", "17"]
+    sdgs: ["4", "8", "9", "17"]
   },
   {
     id: "news-2",
@@ -150,7 +149,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     date: "10/06/2026",
     imageUrl: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=600",
     readTime: "6 phút đọc",
-    sdgs: ["4", "9"]
+    sdgs: ["1", "4", "10"]
   },
   {
     id: "news-3",
@@ -162,7 +161,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     date: "09/06/2026",
     imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=600",
     readTime: "4 phút đọc",
-    sdgs: ["4", "17"]
+    sdgs: ["4", "8", "9", "17"]
   },
   {
     id: "news-4",
@@ -174,7 +173,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     date: "09/06/2026",
     imageUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=600",
     readTime: "8 phút đọc",
-    sdgs: ["9", "17"]
+    sdgs: ["4", "9", "17"]
   },
   {
     id: "news-5",
@@ -186,7 +185,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     date: "07/06/2026",
     imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600",
     readTime: "5 phút đọc",
-    sdgs: ["9", "17"]
+    sdgs: ["4", "9", "17"]
   },
   {
     id: "news-6",
@@ -198,7 +197,7 @@ export const NEWS_ITEMS: NewsItem[] = [
     date: "05/06/2026",
     imageUrl: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=300",
     readTime: "3 phút đọc",
-    sdgs: ["4"]
+    sdgs: ["1", "4", "10"]
   }
 ];
 
@@ -207,8 +206,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-1",
     title: "Thông báo về việc Đăng ký học phần Học kỳ 1 (Niên khóa 2026 - 2027) hệ Đại học Chính quy",
     titleEn: "Course Registration Guide for Semester 1 (Academic Year 2026 - 2027) - Full-time Undergraduate",
-    date: "11",
-    month: "Th6",
+    date: "11/06/2026",
     category: "undergrade",
     pinned: true,
     priority: "Khẩn"
@@ -217,8 +215,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-2",
     title: "Thông báo nộp hồ sơ xét Đạt chuẩn đầu ra Ngoại ngữ và Tin học đợt tháng 6 năm 2026",
     titleEn: "Application Notice for Foreign Language & IT Proficiency Graduation Benchmarks - June 2026",
-    date: "10",
-    month: "Th6",
+    date: "10/06/2026",
     category: "undergrade",
     pinned: true,
     priority: "Quan trọng"
@@ -227,8 +224,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-3",
     title: "Thông báo bảo vệ Luận văn Thạc sĩ Khoa học đợt 1 năm 2026 chuyên ngành Toán Giải tích & Toán ứng dụng",
     titleEn: "Defense Schedule for Master of Science Thesis (Phase 1, 2026) - Analysis & Applied Math",
-    date: "09",
-    month: "Th6",
+    date: "09/06/2026",
     category: "postgrade",
     pinned: true,
     priority: "Quan trọng"
@@ -237,8 +233,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-4",
     title: "Chương trình Học bổng Ươm mầm Tài năng Toán học năm 2026 tài trợ bởi Viện Nghiên cứu Cao cấp về Toán",
     titleEn: "VIASM Mathematics Talent Development Scholarship Program 2026 Applications Open",
-    date: "08",
-    month: "Th6",
+    date: "08/06/2026",
     category: "scholarship",
     pinned: true,
     priority: "Khẩn"
@@ -247,8 +242,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-5",
     title: "Thông báo Đăng ký xét Đề tài Tốt nghiệp Cử nhân các lớp ngành Khoa học Dữ liệu và Trí tuệ Nhân tạo",
     titleEn: "Undergraduate Final Project Topic Proposal Allocations - Data Science and AI Programs",
-    date: "05",
-    month: "Th6",
+    date: "05/06/2026",
     category: "undergrade",
     priority: "Bình thường"
   },
@@ -256,8 +250,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-6",
     title: "Thông báo v/v Xét miễn, giảm học phí và hỗ trợ chi phí học tập học kỳ 2 cho sinh viên có hoàn cảnh khó khăn",
     titleEn: "Tuition Waiver & Financial Assistance Program for Semester 2 - Eligible Underprivileged Students",
-    date: "02",
-    month: "Th6",
+    date: "02/06/2026",
     category: "undergrade",
     priority: "Quan trọng"
   },
@@ -265,8 +258,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-7",
     title: "Thông báo tuyển sinh đào tạo trình độ Tiến sĩ khóa 2 năm 2026 ngành Cơ sở toán học cho Tin học và Toán ứng dụng",
     titleEn: "Admission Announcement for PhD Programs (Cohort 2, 2026) - Mathematical Foundations for CS & Applied Math",
-    date: "25",
-    month: "Th5",
+    date: "25/05/2026",
     category: "postgrade",
     priority: "Bình thường"
   },
@@ -274,8 +266,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-8",
     title: "Quyết định phê duyệt Đề cương chi tiết Luận án Tiến sĩ khóa 2025 chuyên ngành Thống kê và Tối ưu hóa khoa học",
     titleEn: "Approval of PhD Dissertation Proposal Synopsis Guidelines - Class of 2025 Statistics & Optimization",
-    date: "22",
-    month: "Th5",
+    date: "22/05/2026",
     category: "postgrade",
     priority: "Quan trọng"
   },
@@ -283,8 +274,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-9",
     title: "Thông báo Tuyển dụng Trợ giảng (TA) môn Đại số Tuyến tính và Giải tích trong Học kỳ Hè năm 2026",
     titleEn: "Recruitment for Teaching Assistants (TA) in Linear Algebra & Calculus - Summer Semester 2026",
-    date: "20",
-    month: "Th5",
+    date: "20/05/2026",
     category: "scholarship",
     priority: "Quan trọng"
   },
@@ -292,8 +282,7 @@ export const NOTIFICATION_ITEMS: NotificationItem[] = [
     id: "notif-10",
     title: "Học bổng Doanh nghiệp ALTA Group vinh danh tân Thủ khoa Đạt chứng chỉ quốc tế và thành tích nghiên cứu",
     titleEn: "ALTA Group Corporate Scholarships Award Ceremony - Honoring Academic Leaders with Global Certificates",
-    date: "15",
-    month: "Th5",
+    date: "15/05/2026",
     category: "scholarship",
     priority: "Quan trọng"
   }
