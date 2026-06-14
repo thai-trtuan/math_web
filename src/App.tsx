@@ -914,11 +914,11 @@ export default function App() {
       {/* 5. KHỐI TIN TỨC & THÔNG BÁO                 */}
       {/* ========================================== */}
       
-      <section id="news-section" className="pt-12 pb-10 bg-slate-50/50 border-t border-slate-200/40">
+      <section id="news-section" className="pt-[52px] pb-[52px] bg-slate-50/50 border-t border-slate-200/40">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-[100px] w-full">
           
           {/* Header of News & Events section */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-[36px]">
             <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase ">
               {t("secNewsTitle")}
             </h2>
@@ -931,7 +931,7 @@ export default function App() {
             </div>
           ) : (
             <div>
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
                 {/* Highlighted Article - Left Column (col 7) */}
                 <div 
@@ -1012,7 +1012,7 @@ export default function App() {
               </div>
 
               {/* Center aligned read more button */}
-              <div className="text-center mt-3 mb-1">
+              <div className="text-center mt-[24px]">
                 <button 
                   className="inline-flex items-center gap-1.5 bg-white hover:bg-slate-50 justify-center text-sky-600 hover:text-sky-700 font-bold text-xs py-1.5 px-4.5 rounded-lg border border-slate-200 hover:border-sky-600 transition-all cursor-pointer shadow-3xs w-auto mx-auto"
                 >
@@ -1024,12 +1024,12 @@ export default function App() {
           )}
 
           {/* Divider between News & Announcements slider */}
-          <div className="w-full h-px border-t border-slate-200 mt-4 mb-10"></div>
+          <div className="w-full h-px border-t border-slate-200 mt-[52px] mb-[52px]"></div>
 
           {/* Section 5B: Student Announcements Slider (As requested - Moved below as a horizontal slider) */}
-          <div id="student-alerts" className="w-full space-y-4">
+          <div id="student-alerts" className="w-full space-y-0">
             {/* Announcements Header block */}
-            <div className="flex flex-col items-center justify-center mb-8 w-full text-center relative">
+            <div className="flex flex-col items-center justify-center mb-[36px] w-full text-center relative">
               <h2 className="text-2xl md:text-3xl font-bold text-sky-600 tracking-tight font-sans uppercase">
                 {lang === "vi" ? "THÔNG TIN CHO NGƯỜI HỌC" : "INFORMATION FOR LEARNERS"}
               </h2>
@@ -1112,7 +1112,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="text-center mt-3 mb-1">
+            <div className="text-center mt-[24px]">
               <button 
                 onClick={(e) => { e.preventDefault(); }}
                 className="inline-flex items-center gap-1.5 bg-white hover:bg-slate-50 justify-center text-sky-600 hover:text-sky-700 font-bold text-xs py-1.5 px-4.5 rounded-lg border border-slate-200 hover:border-sky-600 transition-all cursor-pointer shadow-3xs w-auto mx-auto"
